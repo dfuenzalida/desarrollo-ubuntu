@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!-- !DOCTYPE book PUBLIC "-//Norman Walsh//DTD DocBk XML V3.1.7//EN" "docbookx.dtd" -->
+
+<chapter>
+  <title>Introducción</title>
+
+  <para>
+  De acuerdo a la literatura, <quote>todo buen trabajo de software comienza a
+  partir de las necesidades personales del programador</quote>, así que vamos
+  a comenzar con una declaración de los supuestos con los que vamos a trabajar
+  en esta misma línea:
+
+  <itemizedlist>
+
+  <listitem>
+  <para>Tenemos un problema a resolver,</para>
+  </listitem>
+
+  <listitem>
+  <para>Tenemos el convencimiento de poder resolver el problema mediante
+  herramientas de Software Libre,</para>
+  </listitem>
+
+  <listitem>
+  <para>
+  Vamos a liberar nuestra solución a nuestro problema, pensando que puede
+  servir a otros y pensando que eventualmente podemos recibir colaboraciones
+  de otros.
+  </para>
+  </listitem>
+  </itemizedlist>
+
+  Para efectos de este documento, el problema que nos interesa resolver será
+  crear una aplicación sencilla que permita dividir archivos de gran tamaño
+  en trozos para copiar mediante algun medio entre dos computadores.
+  </para>
+
+  <para>
+  Mi problema original surgió debido a que uso un equipo para bajar archivos
+  grandes desde Internet, y me interesa copiar los archivos a otro PC que no
+  tiene conexión. Generalmente son archivos ISO de distribuciones de Linux,
+  pero también pueden ser archivos MP3 de gran tamaño, etc. Tengo pendrives
+  USB de 128 y 256 megabytes para transportar archivos, pero un archivo ISO
+  tiene sobre 700 megabytes y aunque podría grabarlo en un CD-RW, hacerlo 
+  es muy lento.
+  </para>
+
+  <para>
+  En la actualidad existen programas que realizan esto mismo, como el programa
+  <filename>split</filename> que funciona en la linea de comandos, pero me
+  interesa crear una aplicación de escritorio que me permita hacer esto
+  mismo de una manera intuitiva y que me permitiera validar de alguna manera
+  sencilla que al cortar el archivo en trozos y volverlo a unir se obtenga
+  el mismo archivo original (sin corrupción de los datos).
+  </para>
+
+  <para>
+  Entre las alternativas para construir el software en mi sistema operativo
+  consideré los siguientes lenguajes de programación: C, Perl, Python, C# y Java.
+  </para>
+
+  <para>
+  Descarté el lenguaje C desde el principio porque llevo demasiado tiempo sin
+  programar en C y recientemente tuve que ayudar a un par de familiares que
+  estudian informática con sus tareas y no iba a avanzar rápido si ni siquiera
+  podía recordar bien la notación para hacer una lista enlazada. Quizás vale
+  la pena reconsiderar volver a programar en C si el rendimiento con cualquier
+  otra alternativa es muy malo, pero quizás sólo alguna sección crítica.
+  </para>
+
+  <para>
+  Descarté programar en Perl porque no lo uso hace mucho tiempo y su sintaxis
+  es desagradable. Cuesta demasiado seguir un programa después de una semana
+  de haberlo escrito. Fin del asunto.
+  </para>
+
+  <para>
+  Descarté C# por falta de conocimientos, aunque se ve muy interesante y
+  cercano a Java, pero cuando comencé a desarrollar la aplicación, el Runtime
+  de Mono (la implementación de C# para Linux) no venía en la instalación por
+  omisión de Ubutu (en el paquete <filename>ubuntu-desktop</filename>),
+  así que me parecía un poco
+  pretencioso que alguien bajase varios megas de paquetes de dependencias para
+  un programa de sólo cien kilobytes o menos.
+  </para>
+
+  <para>
+  Finalmente, descarté Java porque para desarrollar una aplicación con look
+  nativo en el escritorio Ubuntu requería algo mejor que Swing y AWT. La
+  alternativa era usar bibliotecas Java para GTK+, pero no estaban muy maduras
+  cuando partí. Y se repetía el problema de usar varios megas de dependencias
+  para una aplicación muy pequeña. Y ni siquiera sabía si el GNU Classpath iba
+  a soportar mi aplicación, así que si quería usar una maquina Java que fuera
+  libre, tenía mis dudas.
+  </para>
+
+  <para>
+  Para mí, Python me ofrecía un lenguaje robusto y orientado a objetos,
+  sintaxis clara para poder mantener el código, viene en la instalación base
+  del escritorio (de hecho, las herramientas de escritorio para la administración
+  están escritas en Python y GTK+) así que me dispuse a refrescar mis escuetos
+  conocimientos de Python.
+  </para>
+
+  <para>
+  Alguna vez hice un script que permitía recuperar una página web del diario
+  La Tercera y generar feeds RSS cuando el diario todavía no lo hacía, e hice
+  una aplicación similar para notificar cuando me había llegado correo nuevo
+  usando la interfaz web de una versión vieja de Microsoft Outlook. Pero no
+  había hecho algo así como una aplicación de escritorio.
+  </para>
+
+  <para>
+  <inlinemediaobject>
+    <imageobject><imagedata fileref="imagen.gif" format="GIF" /></imageobject>
+    <!-- textobject><phrase>glosa de la imagen</phrase></textobject -->
+  </inlinemediaobject>
+  </para>
+
+</chapter>
+

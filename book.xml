@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!-- !DOCTYPE book PUBLIC "-//Norman Walsh//DTD DocBk XML V3.1.7//EN" "docbookx.dtd" -->
+<!DOCTYPE book PUBLIC "-//Norman Walsh//DTD DocBk XML V3.1.7//EN" [
+  <!ENTITY capitulo-introduccion SYSTEM "capitulo-introduccion.xml">
+  <!ENTITY capitulo-python-glade SYSTEM "capitulo-python-glade.xml">
+  <!ENTITY capitulo-empaquetar SYSTEM "capitulo-empaquetar.xml">
+]>
+
+<book lang="es">
+  <title>Desarrollo y distribuci&oacute;n de Software Libre en Ubuntu GNU/Linux</title>
+
+  <bookinfo>
+    <title>Desarrollo y distribuci&oacute;n de Software Libre en Ubuntu GNU/Linux</title>
+    <authorgroup>
+      <author>
+        <firstname>Denis</firstname><surname>Fuenzalida</surname>
+      </author>
+    </authorgroup>
+
+    <abstract>
+    <para>...</para>
+    </abstract>
+
+  </bookinfo>
+
+  <!-- Capitulo 1: Introduccion -->
+  &capitulo-introduccion;
+
+  <!-- Capitulo 2: Python y glade -->
+  &capitulo-python-glade;
+
+  <!-- Capitulo 3: Empaquetar SW -->
+  &capitulo-empaquetar;
+
+  <!--
+  <chapter>
+  <title>Uso de GNU Autotools</title>
+
+  <para>
+  TODO: Escribir
+  </para>
+
+
+	<informaltable>
+	<tgroup cols="1">
+	<tbody>
+	<row>
+	<entry>foo</entry></row>
+	<row><entry>bar</entry></row>
+	</tbody>
+	</tgroup>
+	</informaltable>
+
+	<table><title>bar</title>
+	<tgroup cols="1">
+	<tbody>
+	<row><entry>bar</entry></row>
+	</tbody>
+	</tgroup>
+	</table>
+
+  </chapter>
+  -->
+
+  <glossary>
+
+	<glossentry><glossterm>foo</glossterm>
+	<indexterm><primary>foo</primary></indexterm>
+	<glossdef>
+	<para>
+	Some appropriate definition goes here.
+	</para>
+	</glossdef>
+	</glossentry>
+
+  </glossary>
+
+</book>
