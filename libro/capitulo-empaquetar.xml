@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-<!-- !DOCTYPE book PUBLIC "-//Norman Walsh//DTD DocBk XML V3.1.7//EN" "docbookx.dtd" -->
 
 <chapter>
   <title>Empaquetado y distribución de software para Ubuntu</title>
@@ -274,7 +273,8 @@ mkdir dists/feisty
 mkdir dists/feisty/main
 mkdir dists/feisty/main/binary-i386
 ]]>
-</programlisting></para>
+</programlisting>
+  </para>
 
   </sect1>
 
