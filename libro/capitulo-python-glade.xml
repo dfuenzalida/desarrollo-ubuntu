@@ -60,6 +60,64 @@
   </inlinemediaobject>
   </para>
 
+  <para>
+  Con Glade puedes crear de forma bastante rápida un prototipo de interaz de usuario.
+  Comienzas seleccionando una Ventana desde la Paleta de elementos y comienzas a
+  agregarle contenedores donde puedes colocar otros elementos como menúes, cajas de
+  texto y botones.
+  </para>
+
+  <para>
+  Cada uno de estos elementos emite eventos cada vez que el usuario interactúa con
+  ellos. Algunos ejemplos son: cuando el usuario pulsa sobre un botón o cuando una 
+  tecla se presiona mientras el usuario llena un campo de texto.
+  </para>
+
+  <para>
+  Al editar la interfaz de usuario en Glade, cada uno de los eventos que nos interese
+  manejar deberá tener asociado un manejador, es decir, un valor que lo identifique
+  de forma que nuestro programa identificará cada evento que se haya producido.
+  </para>
+
+  <para>
+  Un ejemplo mínimo en Python para cargar un archivo de intefaz de usuario creado con Glade
+  es el siguiente:
+
+<programlisting>
+<![CDATA[
+
+class GtkFileSplitter:
+  """GTK/Glade User interface to FileSplitter"""
+
+  def __init__(self):
+    
+    # Cargar interfaz de usuario
+    self.gladefile = "gtkfilesplitter.glade"  
+    self.wTree = gtk.glade.XML(self.gladefile, "GtkFileSplitter", APP) 
+    
+    # Conectar eventos con metodos en la clase
+    dic = {
+      "on_splitFileButton_clicked"   : self.on_splitFileButton_clicked,
+      "on_FileSplitGui_destroy"      : gtk.main_quit }
+    self.wTree.signal_autoconnect(dic)
+
+]]>
+</programlisting>
+
+  En el ejemplo, se carga el archivo <filename>gtkfilesplitter.glade</filename>
+  y se crea un árbol de objetos con todos los elementos de la interfaz de usuario.
+  El objeto Ventana será el padre de otros objetos contenedores que a su vez serán
+  padres de botones, menúes y a su vez otros contenedores...
+
+  Luego, se crea un diccionario que relaciona los
+  eventos definidos en la interfaz de usuario con métodos que deben estar definidos
+  en la clase Python.
+
+  En este caso, el evento <filename>on_splitFileButton_clicked</filename>, definido
+  en la interfaz de usuario para el caso en que el usuario hace click en un botón,
+  queda vinculado al método <filename>on_splitFileButton_clicked()</filename>
+  que está definido en la clase <filename>GtkFileSplitter</filename>.
+  </para>
 
   </sect1>
 
