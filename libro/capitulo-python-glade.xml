@@ -4,6 +4,9 @@
 <chapter>
   <title>Desarrollo con Python y Glade</title>
 
+  <sect1>
+  <title>Introducción</title>
+
   <para>
   Hasta ahora, la combinación que me parece más atractiva para desarrollar
   aplicaciones de escritorio en Linux es la del lenguaje Python con Glade
@@ -22,12 +25,13 @@
   </para>
 
   <para>
-  El desarrollo de una aplicación con Python y Glade es bastante sencillo.
-  </para>
-
-  <para>
+  El desarrollo de una aplicación con Python y Glade es bastante sencillo:
   Primero se crean una o más clases en Python con los métodos que resuelven
-  la lógica del problema que nos interesa resolver.
+  la lógica del problema que nos interesa resolver. Idealmente, deberíamos
+  dejar solo un esqueleto de los métodos para tener una idea de como vamos a
+  abordar el problema, para luego crear pruebas unitarias y recién ahí comenzar
+  a implementar la lógica de cada método de forma de pasar sin problemas las
+  pruebas unitarias.
   </para>
 
   <para>
@@ -38,6 +42,7 @@
   que ocurren en la interfaz de usuario, y ejecutan cierta lógica que programamos
   en las clases que conocen la lógica de nuestro problema. 
   </para>
+  </sect1>
 
 
 </chapter>
