@@ -1,0 +1,2 @@
+xsltproc -o libro.fo /usr/share/docbook-xsl/fo/docbook.xsl libro.xml
+/cygdrive/c/tmp/fop-0.94/fop libro.fo libro.pdf
