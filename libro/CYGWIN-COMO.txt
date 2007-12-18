@@ -1,2 +1,6 @@
-xsltproc -o libro.fo /usr/share/docbook-xsl/fo/docbook.xsl libro.xml
-/cygdrive/c/tmp/fop-0.94/fop libro.fo libro.pdf
+Tambien es posible generar PDFs desde Windows usando Cygwin, es necesario instalar los paquetes docbook-xsl y libxlst.
+
+Si hemos instalado FOP (por separado) en /cygdrive/c/tmp/fop-0.94, es cosa de 2 pasos:
+
+$ xsltproc -o libro.fo /usr/share/docbook-xsl/fo/docbook.xsl libro.xml
+$ /cygdrive/c/tmp/fop-0.94/fop libro.fo libro.pdf
