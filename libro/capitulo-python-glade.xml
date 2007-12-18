@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!-- !DOCTYPE book PUBLIC "-//Norman Walsh//DTD DocBk XML V3.1.7//EN" "docbookx.dtd" -->
+
+<chapter>
+  <title>Desarrollo con Python y Glade</title>
+
+  <para>
+  Hasta ahora, la combinación que me parece más atractiva para desarrollar
+  aplicaciones de escritorio en Linux es la del lenguaje Python con Glade
+  (como biblioteca y utilidad para crear la interfaz de usuario).
+  </para>
+
+  <para>
+  En Python tenemos un lenguaje de programación maduro, con características
+  de orientación a objetos pero liviano en sintaxis y que deja una buena
+  cantidad de opciones a los desarrolladores responsables. De hecho, Sean
+  Kelly, en un destacado videocast sobre desarrollo de aplicaciones Web habla
+  de la excesiva mistificación de la encapsulación en el mundo de la orientación
+  a objetos. El se refiere a los desarrolladores Python como "consenting adults"
+  ("adultos con consentimiento") porque si se necesita, se puede romper la
+  encapsulación con consentimiento y "tocar las partes privadas" :-)
+  </para>
+
+  <para>
+  El desarrollo de una aplicación con Python y Glade es bastante sencillo.
+  </para>
+
+  <para>
+  Primero se crean una o más clases en Python con los métodos que resuelven
+  la lógica del problema que nos interesa resolver.
+  </para>
+
+  <para>
+  Luego, se crea una o más clases que representan la interfaz de usuario de
+  la aplicación. Esta clase de interfaz de usuario utiliza un archivo XML 
+  que contiene la definición de la interfaz de usuario: ventanas, barras de menú,
+  botones, íconos, etc. Esta clase tiene métodos que están conectados con los eventos 
+  que ocurren en la interfaz de usuario, y ejecutan cierta lógica que programamos
+  en las clases que conocen la lógica de nuestro problema. 
+  </para>
+
+
+</chapter>
+

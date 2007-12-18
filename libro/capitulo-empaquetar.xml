@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!-- !DOCTYPE book PUBLIC "-//Norman Walsh//DTD DocBk XML V3.1.7//EN" "docbookx.dtd" -->
+
+<chapter>
+  <title>Empaquetado y distribución de software para Ubuntu</title>
+
+  <para>
+  Hemos llegado al punto en que tenemos software con una calidad y robustez suficiente
+  como para comenzar a distribuirlo con nuestros usuarios. En este capítulo revisaremos
+  el proceso de empaquetar un proyecto de software como un paquete instalable en un
+  sistema y de como este paquete se puede colocar en un repositorio de software de forma
+  que los usuarios de nuestra aplicación puedan obtener de forma automática las nuevas
+  versiones mejoradas y ampliadas de nuestro software ya publicado.
+  </para>
+
+  <sect1>
+  <title>Entendiendo los paquetes de software</title>
+  <para>
+  En sistemas basados en Debian (como Ubuntu, Knoppix y otros) el software que se
+  instala en nuestros equipos se encuentra agrupado lógicamente en paquetes, que se
+  obtienen desde los discos de instalación e Internet. Estos paquetes contienen los
+  archivos que se instalan en nuestros sistemas, más cierta información de contexto
+  (metadatos) que indican que cada uno de estos componentes de software obedece ciertas
+  reglas y cuales son los recursos de los que provee a nuestro sistema.
+  </para>
+
+  <para>
+  En general, entonces, diremos que un paquete de software es un elemento que se compone
+  de un conjunto de archivos a instalar, y que posee información sobre su versión, los
+  otros paquetes de software que requiere para funcionar, los recursos que este paquete
+  provee para nuestro sistema y eventualmente, con cuales componentes no se lleva bien 
+  (porque puede haber incompatibilidades entre 2 componentes diferentes).
+  </para>
+
+  <sect2>
+  <!-- versiones del software -->
+  <title>Versiones de un elemento de software</title>
+  <para>
+  Los paquetes de software que instalamos y producimos poseen un número de versión que
+  sirve para identificar un conjunto de características que ese software posee, en
+  términos de funcionalidades, errores corregidos y por corregir, entre otros. Hay una regla
+  más o menos genérica que indica que se usa un número mayor de versión para indicar 
+  grandes hitos en el desarrollo de un programa, luego un número menor de versión para
+  indicar el grado de avance en el desarrollo de funcionalidades entre estos grandes hitos,
+  y finalmente, un tercer número que indica correcciones de seguridad hechas a un programa.
+  </para>
+
+  <para>
+  De esta forma, un programa en la versión <filename>1.5.3</filename> indica que ya se
+  alcanzó el primer gran
+  hito de desarrollo del programa (<filename>1</filename>), en camino hacia una versión
+  2. El número de versión menor <filename>5</filename> indica que es la quinta entrega
+  de funcionalidades sobre la versión 1.0, y además
+  el tercer dígito de versión (<filename>3</filename>) indica que se han hecho 3
+  correcciones importantes de seguridad a la versión 1.5 de este programa.
+  </para> 
+  </sect2>
+
+  <sect2>
+  <!-- dependencias -->
+  <title>Dependencias de un elemento de software</title>
+
+  <para>
+  En general, el software de nuestros equipos funciona sobre una cantidad bastante de
+  otros componentes previamente instalados, de la misma forma en que el techo de una casa
+  descansa sobre las murallas, que a su vez, descansan en los cimientos. Así, nuestro
+  software funcionará sobre la base de que otros componentes de software ya se encuentren
+  instalados.
+  </para>
+  </sect2>
+
+
+  </sect1>
+
+  <!-- Creando un paquete de software Debian -->
+  <sect1>
+  <title>Creación de un paquete de software Debian</title>
+
+  <para>
+  Al ser una distribución basada en Debian, la creación de paquetes en Ubuntu utiliza
+  el mismo conjunto de herramientas de ayuda para el proceso de empaquetamiento, entre
+  las que se encuentran <filename>dh_make</filename>, <filename>dch</filename>,
+  <filename>fakeroot</filename> y otros.
+  </para>
+
+  <para>
+  A diferencia de otros textos publicados en Internet, vamos a cubrir el escenario más
+  completo posible, lo que implica que vamos a crear paquetes fuente y binarios que
+  utilizarán un esquema de firma digital basada en GNU Privacy Guard (que es una
+  implementación libre del
+  estándar de firma digital PGP), para que los usuarios de los paquetes que empaquetemos
+  puedan obtener las versiones más recientes del software sin advertencias que puedan
+  intimidarlos. Si no usamos firmas en el software que empaquetamos y en los repositorios
+  de software a crear, el sistema indica una serie de advertencias al usuario (sobre
+  el riesgo de instalar software que no ha sido firmado por ningún responsable) que
+  pueden despertar suspicacias o rechazo, cada vez que publiquemos una nueva actualización
+  de nuestro software.
+  </para>
+
+  <sect2>
+  <title>Creación de una firma digital con GnuPG</title>
+
+  <para>
+  En primer lugar, se requiere instalar y configurar el software requerido para firmar
+  digitalmente los archivos. Las herramientas para empaquetamiento y distribución de
+  software en Debian y Ubuntu se encuentran bien integradas con GnuPG y es sencillo de
+  utilizar. Procedemos a instalar GnuPG:
+
+  <programlisting><![CDATA[$ sudo apt-get install gnupg ]]></programlisting>
+  </para>
+
+
+  <!-- TODO: Agregar referencia al HOWTO en http://www.gnupg.org/(en)/documentation/howtos.html -->
+
+  <para>
+  Luego de instalado, debemos generar un conjunto de llaves pública y privada con las
+  que funciona el mecanismo de firma digital. Para ello, ejecutamos en un terminal:
+  <programlisting><![CDATA[$ gpg --gen-key ]]></programlisting>
+  </para>
+
+  <para>
+  El programa nos preguntará primero sobre el algoritmo a utilizar para la generación de las claves,
+  para lo cual dejamos el algoritmo sugerido por omisión. La siguiente pregunta es la longitud de la
+  clave, para lo cual también dejamos al largo sugerido. Luego se nos pregunta el tiempo durante el
+  cual estas claves serán vigentes. Para efectos prácticos, 6 meses o un año pueden estar bien,
+  pero es posible que otras organizaciones o proyectos usen períodos diferentes por motivos de
+  seguridad.
+  Luego, el programa pide algunos datos del
+  usuario para registrar la identificación de quien firma: El nombre, un comentario o alias y una
+  dirección de correo electrónico.
+  </para>
+
+  <para>
+  Finalmente, se pide una contraseña que se utiliza cada vez que se va a firmar. La contraseña
+  idealmente debe ser larga, que combine mayúsculas y minúsculas, etc.
+  </para>
+
+  <para>
+  A continuación, el programa realiza un trabajo que puede demorar algunos momentos y que consiste
+  en la generación de la llave pública y privada, que se basa en la generación de números primos
+  mediante la recolección de datos más o menos aleatorios como la fecha y hora, carga del procesador,
+  memoria utilizada y un largo etcétera. Puede demorar un poco. Para comprobar la firma recien generada,
+  se pueden listar las claves junto a un identificador corto que le corresponde a cada una, con el
+  siguiente comando:
+
+  <programlisting>
+<![CDATA[
+$ gpg --list-keys
+/users/alice/.gnupg/pubring.gpg
+---------------------------------------
+pub  1024D/BB7576AC 1999-06-04 Alice (Judge) <alice@cyb.org>
+sub  1024g/78E9A8FA 1999-06-04
+]]>
+</programlisting></para>
+
+  <para>
+  Este comando produce un listado, del cual nos interesa el identificador hexadecimal junto
+  a la llave pública. En el listado anterior, es el código <filename>BB7576AC</filename>. Conviene
+  tener este identifiador a mano a la hora de firmar paquetes y hacer cambios en el repositorio
+  que vamos a crear.
+  </para>
+
+  </sect2>
+
+  <sect2>
+  <title>Creación de un paquete Debian</title>
+
+  <para>
+  Para crear un paquete Debian, el proceso consta de copiar el código fuente de nuestro proyecto
+  y agregar unos archivos de datos extras utilizados por las herramientas que forman los paquetes.
+  Cuando el código se obtiene desde un tarball o desde un repositorio de código fuente, este proceso
+  de agregar archivos de Debian se llama "Debianización".
+  </para>
+
+  <para>
+  Procederemos a instalar los siguientes paquetes para instalar las utilidades mínimas para construir
+  paquetes Debian:
+
+  <programlisting><![CDATA[ $ sudo apt-get install dh-make devscripts fakeroot ]]></programlisting>
+
+  (en caso de construir programas a partir de código fuente en C, también se requiere
+  instalar el paquete <filename>build-essential</filename>):
+  </para>
+
+  <para>
+  Para producir el paquete, obtenemos una copia del código fuente de nuestro proyecto en un directorio
+  temporal (por ejemplo, <filename>/tmp/debianizando/gtkfilesplitter-0.2</filename>). El directorio debe
+  seguir la siguiente convención: [nombre-del-proyecto]-[versión]. En el ejemplo, el nombre del proyecto
+  es <filename>gtkfilesplitter</filename> y la versión es la 0.2.
+  </para>
+
+  <para>
+  En el directorio donde se encuentra el código fuente de nuestro proyecto, ejecutamos
+
+  <programlisting><![CDATA[ $ dh_make -c gpl -e usuario@miempresa.com -s --createorig ]]></programlisting>
+  </para>
+
+  <para>
+  La herramienta <filename>dh_make</filename> agregará los archivos con la información extra para
+  producir el paquete en un directorio <filename>debian</filename> en el directorio actual. El
+  parámetro <filename>-c</filename> indica el tipo de licencia a utilizar (las opciones con GPL, LGPL,
+  entre otras). La dirección de correo del usuario que produce el paquete se especifica con la
+  opción <filename>-e</filename>. Para firmar el paquete hemos utilizado la opción <filename>-s</filename>
+  (por "sign") y finalmente, es posible que no hayamos generado el directorio con el código fuente
+  a partir de un tarball, así que la opción <filename>--createorig</filename> le indica al programa
+  que la genere por nosotros.
+  </para>
+
+  <para>
+  <!-- TODO mejorar descripción de los archivos luego de dh_make -->
+  La ejecución del programa deja tras de sí un directorio <filename>debian</filename> con un conjunto
+  de archivos con información del paquete que deberíamos modificar, y en el directorio superior, un
+  archivo comprimido (con tar y gzip) con el contenido del directorio antes de la Debianización, un
+  archivo de cambios y un archivo extra.
+  </para>
+
+  <para>
+  Si es necesario indicar que este paquete tiene algunas correcciones producto de una mejora o debido
+  a que se aplicó algún parche, se puede indicar en un archivo de ChangeLog. Existe un utilitario que
+  sirve para esto:
+
+  <programlisting><![CDATA[ $ dch -i ]]></programlisting>
+  </para>
+
+  <para>
+  Este programa abrirá el archivo <filename>debian/changelog</filename> del proyecto y agregará unas
+  lineas de contexto para poder agregar la lista de cambios de esta versión de nuestro programa.
+  Guardamos los cambios al archivo, salimos del editor y estamos listos para producir el paquete Debian.
+  </para>
+
+  <para>
+  Para producir el paquete firmado, necesitamos el identificador corto de la firma digital (en el ejemplo
+  en el punto anterior, era <filename>BB7576AC</filename>). Para producir el paquete firmado ejecutamos
+  el siguiente comando:
+
+  <programlisting><![CDATA[ $ dpkg-buildpackage -sgpg -kBB7576AC -rfakeroot ]]></programlisting>
+  </para>
+
+  <para>
+  <!-- TODO verificar el uso de fakeroot -->
+  Las opciones utilizadas son <filename>-sgpg</filename> para utilizar firma GnuPG. La opción
+  <filename>-k</filename> es el identificador de la llave a utilizar. Para crear los paquetes se
+  requiere utilizar un pseudoambiente de root, para lo que se usa la herramienta
+  <filename>fakeroot</filename>.
+  </para>
+
+  <para>
+  El proceso para generar el archivo de paquetes puede demorar un poco y se escribe una gran
+  cantidad de texto en pantalla a medida que se ejecuta un gran conjunto de tareas. Finalmente,
+  si no hay errores en la construcción, se nos pedirá la contraseña utilizada al crear nuestras
+  llaves GnuPG para poder firmar unos archivos que forman parte del paquete.
+  </para>
+
+  <para>
+  Felicitaciones! En este momento deberías contar con tu programa empaquetado apropiadamente
+  como un archivo Deb.
+  </para>
+
+  </sect2>
+  </sect1>
+
+  <sect1>
+  <title>Creación de un repositorio</title>
+
+  <para>
+  Un repositorio Debian utiliza una estructura de directorios para colocar paquetes Debian
+  (archivos <filename>.deb</filename>) y añade ciertos archivos extras con información sobre
+  los paquetes que se encuentran disponibles.
+
+<programlisting>
+<![CDATA[
+mkdir dists
+mkdir dists/feisty
+mkdir dists/feisty/main
+mkdir dists/feisty/main/binary-i386
+]]>
+</programlisting></para>
+
+  </sect1>
+
+
+</chapter>
+
