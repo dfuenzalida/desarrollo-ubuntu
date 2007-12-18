@@ -44,6 +44,24 @@
   </para>
   </sect1>
 
+  <sect1>
+  <title>Diseño de una interfaz de usuario con Glade</title>
+
+  <para>
+  A quienes hayan utilizado entornos de desarrollo como Delphi o Visual Basic les será
+  bastante familiar la idea de arrastrar controles hacia una ventalla con una grilla
+  donde se pueden colocar botones, menúes y otros.
+  </para>
+
+  <para>
+  <inlinemediaobject>
+    <imageobject><imagedata fileref="img/glade1.png" format="PNG" /></imageobject>
+    <textobject><phrase>Glade-2 editando una interfaz de usuario</phrase></textobject>
+  </inlinemediaobject>
+  </para>
+
+
+  </sect1>
 
 </chapter>
 
