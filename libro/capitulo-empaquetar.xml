@@ -281,9 +281,7 @@ mkdir dists/feisty/main
 mkdir dists/feisty/main/binary-i386
 ]]>
 </programlisting>
-  </para>
 
-  <para>
   Copiamos los archivos Deb que hayamos creado al directorio de destino:
 
 <programlisting>
@@ -291,20 +289,18 @@ mkdir dists/feisty/main/binary-i386
 cp /tmp/source/*.deb dists/feisty/main/binary-i386
 ]]>
 </programlisting>
-  </para>
 
-  <para>
-  Creamos los archivos de descripción de los paquetes (<filename>Packages</filename>) y lo comprimimos
+  Creamos los archivos de descripción de los paquetes (<filename>Packages</filename>) y lo comprimimos:
 
 <programlisting>
 <![CDATA[
-apt-ftparchive packages dists/feisty/main/binary-i386/ > dists/feisty/main/binary-i386/Packages
-cat dists/feisty/main/binary-i386/Packages | gzip -9c > dists/feisty/main/binary-i386/Packages.gz
+apt-ftparchive packages dists/feisty/main/binary-i386/ \
+  > dists/feisty/main/binary-i386/Packages
+cat dists/feisty/main/binary-i386/Packages | gzip -9c \
+  > dists/feisty/main/binary-i386/Packages.gz
 ]]>
 </programlisting>
-  </para>
 
-  <para>
   Creamos un archivo de descripción de nuestro repositorio, llamado <filename>apt.conf</filename>.
   Aqui reproduzco el que utilizan los desarrolladores de Automatix:
 
@@ -325,7 +321,8 @@ APT::FTPArchive::Release::Description "This repository contains ...";
 
 <programlisting>
 <![CDATA[
-apt-ftparchive -c apt.conf release dists/feisty/ > dists/feisty/Release
+apt-ftparchive -c apt.conf release dists/feisty/ \
+  > dists/feisty/Release
 cd dists/feisty/
 
 ]]>
