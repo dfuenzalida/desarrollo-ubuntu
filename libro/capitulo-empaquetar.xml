@@ -104,9 +104,17 @@
   En primer lugar, se requiere instalar y configurar el software requerido para firmar
   digitalmente los archivos. Las herramientas para empaquetamiento y distribución de
   software en Debian y Ubuntu se encuentran bien integradas con GnuPG y es sencillo de
-  utilizar. Procedemos a instalar GnuPG:
+  utilizar.
+  </para>
+
+  <para>
+ Procedemos a instalar GnuPG:
 
   <programlisting><![CDATA[$ sudo apt-get install gnupg ]]></programlisting>
+
+  Una buena guía sobre la instalación de GnuPG se encuentra en la siguiente dirección:
+  <ulink url="http://www.gnupg.org/(en)/documentation/howtos.html">http://www.gnupg.org/(en)/documentation/howtos.html</ulink>
+
   </para>
 
 
