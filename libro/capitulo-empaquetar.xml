@@ -48,10 +48,10 @@
   <para>
   De esta forma, un programa en la versión <filename>1.5.3</filename> indica que ya se
   alcanzó el primer gran
-  hito de desarrollo del programa (<filename>1</filename>), en camino hacia una versión
-  2. El número de versión menor <filename>5</filename> indica que es la quinta entrega
-  de funcionalidades sobre la versión 1.0, y además
-  el tercer dígito de versión (<filename>3</filename>) indica que se han hecho 3
+  hito de desarrollo del programa (<command>1</command>), en camino hacia una versión
+  2. El número de versión menor <command>5</command> indica que es la quinta entrega
+  de funcionalidades (desde la versión 1.0), y además
+  el tercer dígito de versión (<command>3</command>) indica que se han hecho 3
   correcciones importantes de seguridad a la versión 1.5 de este programa.
   </para> 
   </sect2>
@@ -151,15 +151,12 @@
   se pueden listar las claves junto a un identificador corto que le corresponde a cada una, con el
   siguiente comando:
 
-  <programlisting>
-<![CDATA[
-$ gpg --list-keys
+<programlisting><![CDATA[$ gpg --list-keys
 /users/alice/.gnupg/pubring.gpg
 ---------------------------------------
 pub  1024D/BB7576AC 1999-06-04 Alice (Judge) <alice@cyb.org>
 sub  1024g/78E9A8FA 1999-06-04
-]]>
-</programlisting></para>
+]]></programlisting></para>
 
   <para>
   Este comando produce un listado, del cual nos interesa el identificador hexadecimal junto
@@ -184,7 +181,7 @@ sub  1024g/78E9A8FA 1999-06-04
   Procederemos a instalar los siguientes paquetes para instalar las utilidades mínimas para construir
   paquetes Debian:
 
-  <programlisting><![CDATA[ $ sudo apt-get install dh-make devscripts fakeroot ]]></programlisting>
+  <programlisting><![CDATA[$ sudo apt-get install dh-make devscripts fakeroot ]]></programlisting>
 
   (en caso de construir programas a partir de código fuente en C, también se requiere
   instalar el paquete <filename>build-essential</filename>):
@@ -200,7 +197,7 @@ sub  1024g/78E9A8FA 1999-06-04
   <para>
   En el directorio donde se encuentra el código fuente de nuestro proyecto, ejecutamos
 
-  <programlisting><![CDATA[ $ dh_make -c gpl -e usuario@miempresa.com -s --createorig ]]></programlisting>
+  <programlisting><![CDATA[$ dh_make -c gpl -e usuario@miempresa.com -s --createorig ]]></programlisting>
   </para>
 
   <para>
@@ -227,7 +224,7 @@ sub  1024g/78E9A8FA 1999-06-04
   a que se aplicó algún parche, se puede indicar en un archivo de ChangeLog. Existe un utilitario que
   sirve para esto:
 
-  <programlisting><![CDATA[ $ dch -i ]]></programlisting>
+  <programlisting><![CDATA[$ dch -i ]]></programlisting>
   </para>
 
   <para>
@@ -241,7 +238,7 @@ sub  1024g/78E9A8FA 1999-06-04
   en el punto anterior, era <filename>BB7576AC</filename>). Para producir el paquete firmado ejecutamos
   el siguiente comando:
 
-  <programlisting><![CDATA[ $ dpkg-buildpackage -sgpg -kBB7576AC -rfakeroot ]]></programlisting>
+  <programlisting><![CDATA[$ dpkg-buildpackage -sgpg -kBB7576AC -rfakeroot ]]></programlisting>
   </para>
 
   <para>
@@ -281,68 +278,43 @@ sub  1024g/78E9A8FA 1999-06-04
   Feisty Fawn). También estoy asumiendo que los paquetes son para arquitectura i386, no para
   procesadores de 64-bits.
 
-<programlisting>
-<![CDATA[
-mkdir dists
+<programlisting><![CDATA[mkdir dists
 mkdir dists/feisty
 mkdir dists/feisty/main
-mkdir dists/feisty/main/binary-i386
-]]>
-</programlisting>
+mkdir dists/feisty/main/binary-i386 ]]></programlisting>
 
   Copiamos los archivos Deb que hayamos creado al directorio de destino:
 
-<programlisting>
-<![CDATA[
-cp /tmp/source/*.deb dists/feisty/main/binary-i386
-]]>
-</programlisting>
+<programlisting><![CDATA[$ cp /tmp/source/*.deb dists/feisty/main/binary-i386 ]]></programlisting>
 
   Creamos los archivos de descripción de los paquetes (<filename>Packages</filename>) y lo comprimimos:
 
-<programlisting>
-<![CDATA[
-apt-ftparchive packages dists/feisty/main/binary-i386/ \
+<programlisting><![CDATA[$ apt-ftparchive packages dists/feisty/main/binary-i386/ \
   > dists/feisty/main/binary-i386/Packages
-cat dists/feisty/main/binary-i386/Packages | gzip -9c \
-  > dists/feisty/main/binary-i386/Packages.gz
-]]>
-</programlisting>
+$ cat dists/feisty/main/binary-i386/Packages | gzip -9c \
+  > dists/feisty/main/binary-i386/Packages.gz ]]></programlisting>
 
   Creamos un archivo de descripción de nuestro repositorio, llamado <filename>apt.conf</filename>.
   Aqui reproduzco el que utilizan los desarrolladores de Automatix:
 
-<programlisting>
-<![CDATA[
-APT::FTPArchive::Release::Origin "automatix";
+<programlisting><![CDATA[APT::FTPArchive::Release::Origin "automatix";
 APT::FTPArchive::Release::Label "automatix updates";
 APT::FTPArchive::Release::Suite "stable";
 APT::FTPArchive::Release::Codename "feisty";
 APT::FTPArchive::Release::Architectures "i386 source";
 APT::FTPArchive::Release::Components "main testing";
-APT::FTPArchive::Release::Description "This repository contains ...";
-
-]]>
-</programlisting>
+APT::FTPArchive::Release::Description "This repository contains ..."; ]]></programlisting>
 
   con lo cual creamos un archivo de <filename>Release</filename>
 
-<programlisting>
-<![CDATA[
-apt-ftparchive -c apt.conf release dists/feisty/ \
+<programlisting><![CDATA[$ apt-ftparchive -c apt.conf release dists/feisty/ \
   > dists/feisty/Release
-cd dists/feisty/
-
-]]>
-</programlisting>
+$ cd dists/feisty/ ]]></programlisting>
 
   Finalmente, utilizamos firma digital sobre este archivo de Release.
 
-<programlisting>
-<![CDATA[
-gpg --output Release.gpg -ba Release
-]]>
-</programlisting>
+  <programlisting><![CDATA[$ gpg --output Release.gpg -ba Release ]]></programlisting>
+
   </para>
 
 

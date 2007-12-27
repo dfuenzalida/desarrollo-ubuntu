@@ -110,12 +110,5 @@
   había hecho algo así como una aplicación de escritorio.
   </para>
 
-  <para>
-  <inlinemediaobject>
-    <imageobject><imagedata fileref="imagen.gif" format="GIF" /></imageobject>
-    <!-- textobject><phrase>glosa de la imagen</phrase></textobject -->
-  </inlinemediaobject>
-  </para>
-
 </chapter>
 

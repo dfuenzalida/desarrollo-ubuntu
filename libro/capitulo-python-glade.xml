@@ -83,10 +83,7 @@
   Un ejemplo mínimo en Python para cargar un archivo de intefaz de usuario creado con Glade
   es el siguiente:
 
-<programlisting>
-<![CDATA[
-
-class GtkFileSplitter:
+<programlisting><![CDATA[ class GtkFileSplitter:
   """GTK/Glade User interface to FileSplitter"""
 
   def __init__(self):
@@ -101,8 +98,7 @@ class GtkFileSplitter:
       "on_FileSplitGui_destroy"    : gtk.main_quit }
     self.wTree.signal_autoconnect(dic)
 
-]]>
-</programlisting>
+]]></programlisting>
 
   En el ejemplo, se carga el archivo <filename>gtkfilesplitter.glade</filename>
   y se crea un árbol de objetos con todos los elementos de la interfaz de usuario.
@@ -124,9 +120,7 @@ class GtkFileSplitter:
   definición de usuario de un botón que al ser pulsado envía el evento 
   <command>on_splitFileButton_clicked</command>
 
-  <programlisting>
-<![CDATA[
-...
+  <programlisting><![CDATA[ ...
     <child>
       <widget class="GtkButton" id="splitFileButton">
         <property name="visible">True</property>
@@ -145,8 +139,7 @@ class GtkFileSplitter:
       </packing>
     </child>
 ...
-]]>
-  </programlisting>
+]]></programlisting>
 
   </para>
 
