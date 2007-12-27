@@ -268,26 +268,37 @@ sub  1024g/78E9A8FA 1999-06-04
   <title>Creación de un repositorio</title>
 
   <para>
-  Un repositorio Debian utiliza una estructura de directorios para colocar paquetes Debian
-  (archivos <filename>.deb</filename>) y añade ciertos archivos extras con información sobre
-  los paquetes que se encuentran disponibles. Un resumen de los pasos sería el siguiente:
+  Un repositorio consiste en una estructura de carpetas publicadas en un servidor web
+  con una estructura y contenidos tales que se pueden obtener paquetes y actualizaciones
+  de software periodicas, integradas con nuestro sistema Ubuntu o Debian.
   </para>
 
   <para>
-  Crear la estructura de directorios para el repositorio (en este caso, es para Ubuntu 7.04,
-  Feisty Fawn). También estoy asumiendo que los paquetes son para arquitectura i386, no para
-  procesadores de 64-bits.
+  Un repositorio Debian utiliza una estructura de directorios para colocar paquetes Debian
+  (archivos <filename>.deb</filename>) y añade ciertos archivos extras con información sobre
+  los paquetes que se encuentran disponibles.
+  </para>
 
-<programlisting><![CDATA[mkdir dists
-mkdir dists/feisty
-mkdir dists/feisty/main
-mkdir dists/feisty/main/binary-i386 ]]></programlisting>
+  <para>
+  Prar crear el repositorio, se debe crear una estructura de directorios (en este ejemplo,
+  es para Ubuntu 7.04, "Feisty Fawn") en la raíz de un directorio publicado en un servidor
+  web (puede ser Apache, pero generalmente yo uso <command>lighttpd</command> que es mucho más
+  sencillo de configurar para pruebas). También estoy asumiendo que los paquetes de software
+  son para arquitectura i386 (procesadores compatibles con Intel x86). Otras arquitecturas
+  válidas que puedes ver son <filename>amd64</filename>, <filename>powerpc</filename> y
+  <filename>sparc</filename>.
 
-  Copiamos los archivos Deb que hayamos creado al directorio de destino:
+<programlisting><![CDATA[$ mkdir dists
+$ mkdir dists/feisty
+$ mkdir dists/feisty/main
+$ mkdir dists/feisty/main/binary-i386 ]]></programlisting>
+
+  Copiamos los archivos Deb (que queremos colocar en el repostorio) al directorio de destino:
 
 <programlisting><![CDATA[$ cp /tmp/source/*.deb dists/feisty/main/binary-i386 ]]></programlisting>
 
-  Creamos los archivos de descripción de los paquetes (<filename>Packages</filename>) y lo comprimimos:
+  Creamos los archivos de descripción de los paquetes (llamado <filename>Packages</filename>)
+  y lo comprimimos:
 
 <programlisting><![CDATA[$ apt-ftparchive packages dists/feisty/main/binary-i386/ \
   > dists/feisty/main/binary-i386/Packages
@@ -305,16 +316,48 @@ APT::FTPArchive::Release::Architectures "i386 source";
 APT::FTPArchive::Release::Components "main testing";
 APT::FTPArchive::Release::Description "This repository contains ..."; ]]></programlisting>
 
-  con lo cual creamos un archivo de <filename>Release</filename>
+  con lo cual creamos un archivo de <filename>Release</filename>. Este archivo permite agregar
+  más metadatos sobre el propósito del repositorio, las arquitecturas soportadas y la versión de
+  Ubuntu o Debian para la cual queremos crear el repositorio.
 
 <programlisting><![CDATA[$ apt-ftparchive -c apt.conf release dists/feisty/ \
   > dists/feisty/Release
 $ cd dists/feisty/ ]]></programlisting>
 
-  Finalmente, utilizamos firma digital sobre este archivo de Release.
+  Finalmente, utilizamos firma digital sobre este archivo de Release. Esto permitirá que,
+  si hemos agregado la llave pública a nuestro depósito de firmas, el actualizador de paquetes
+  valide las firmas digitales de forma automática y sin alertas de seguridad para nuestros usuarios.
 
   <programlisting><![CDATA[$ gpg --output Release.gpg -ba Release ]]></programlisting>
 
+  Con esto, nuestro software queda disponible para que los usuarios agreguen la dirección web
+  en la que hemos colocado el repositorio a su archivo <filename>/etc/apt/sources.list</filename> o
+  mediante el menú <command> Sistema - Administración - Orígenes de Software - Software de Otros
+  Proveedores - Agregar</command>
+  y puedan instalar los paquetes de software del repositorio usando <command>apt-get install</command>
+  o <command>synaptic</command>, etc.
+  </para>
+
+  <para>
+  Si la carpeta raíz (donde hemos creado las carpetas <filename>dists</filename>) y las otras están
+  visibles en la dirección web <filename>http://127.0.0.1/ubuntu</filename>, entonces esta dirección
+  web será la dirección que deberás utilizar para la linea de APT de tu repositorio.
+  </para>
+
+  <para>
+  Una linea de Apt tiene la siguiente apariencia:
+
+<programlisting><![CDATA[deb http://www.servidor.com/ruta/ release componente1 componente2 ...]]></programlisting>
+
+  donde <command>release</command> es la versión de Ubuntu o Debian para que estamos creando el repositorio
+  (en el ejemplo anterior, era <filename>feisty</filename>). Los componentes 1, 2, etc., son los diferentes
+  componentes del repositorio de acuerdo a si son software libre parte de la distribución oficial
+  (<command>main</command>) o son software con una licencia no libre (<command>restricted</command>),
+  software libre no mantenido por Ubuntu (<command>universe</command>) o software ni libre ni mantenido por Ubuntu
+ (<command>multiverse</command>). Generalmente nuestros repositorios caerán en una de las 2 últimas categorías,
+  por lo que nuestros repositorios tendrán una línea de Apt como la siguiente:
+
+  <programlisting><![CDATA[deb http://www.miservidor.com/ubuntu/ feisty universe]]></programlisting>
   </para>
 
 
