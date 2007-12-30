@@ -55,7 +55,7 @@
 
   <para>
   <inlinemediaobject>
-    <imageobject><imagedata fileref="img/glade1.png" format="PNG" /></imageobject>
+    <imageobject><imagedata fileref="img/glade1.png" format="PNG" width="6in" /></imageobject>
     <textobject><phrase>Glade-2 editando una interfaz de usuario</phrase></textobject>
   </inlinemediaobject>
   </para>
@@ -81,9 +81,15 @@
 
   <para>
   Un ejemplo mínimo en Python para cargar un archivo de intefaz de usuario creado con Glade
-  es el siguiente:
+  es uno como el siguiente, copiado desde mi proyecto GtkFileSplitter:
 
-<programlisting><![CDATA[ class GtkFileSplitter:
+<programlisting><![CDATA[#!/usr/bin/env python
+import pygtk
+pygtk.require("2.0")
+import gtk
+import gtk.glade
+
+class GtkFileSplitter:
   """GTK/Glade User interface to FileSplitter"""
 
   def __init__(self):
@@ -98,6 +104,9 @@
       "on_FileSplitGui_destroy"    : gtk.main_quit }
     self.wTree.signal_autoconnect(dic)
 
+if __name__ == "__main__":
+  gtkfilesplitter = GtkFileSplitter()
+  gtk.main()
 ]]></programlisting>
 
   En el ejemplo, se carga el archivo <filename>gtkfilesplitter.glade</filename>
@@ -113,6 +122,13 @@
   en la interfaz de usuario para el caso en que el usuario hace click en un botón,
   queda vinculado al método <filename>on_splitFileButton_clicked()</filename>
   que está definido en la clase <filename>GtkFileSplitter</filename>.
+  </para>
+
+  <para>
+  <inlinemediaobject>
+    <imageobject><imagedata fileref="img/glade2.png" format="PNG" width="6in"/></imageobject>
+    <textobject><phrase>Detalle del evento enviado al pulsar el botón</phrase></textobject>
+  </inlinemediaobject>
   </para>
 
   <para>
