@@ -165,6 +165,51 @@ sub  1024g/78E9A8FA 1999-06-04
   que vamos a crear.
   </para>
 
+  <para>
+  Un programa que hace todas estas tareas más sencillas, con una interfaz gráfica, es
+  <ulink url="http://www.gnome.org/projects/seahorse/">Seahorse</ulink>, y que puede
+  verse en la siguiente captura de pantalla.
+  </para>
+
+  <para>
+  <inlinemediaobject>
+    <imageobject><imagedata fileref="img/seahorse1.png" format="PNG" width="6in" /></imageobject>
+    <textobject><phrase>Pantalla del programa SeaHorse</phrase></textobject>
+  </inlinemediaobject>
+  </para>
+
+  <para>Seahorse queda instalado en <command>Aplicaciones - Accesorios - Contraseñas y claves de cifrado</command></para>
+
+  </sect2>
+
+  <sect2>
+  <title>Agregar la llave pública a tus proveedores de software de confianza</title>
+
+  <para>
+  Para probar la firma digital sobre los paquetes se software que desarrolles, deberás
+  agregar tu llave pública al listado de proveedores de software a los que tienes
+  confianza. De lo contrario, cada vez que instales software producido por tí, aparecerán
+  advertencias indicando que sólo debes instalar programas que vienen de fuentes de confianza.
+  </para>
+
+  <para>
+  Lo que debes hacer es agregar el archivo con tu llave pública (<filename>pubring.gpg</filename>)
+  a la aplicación que se encuentra en <command>Sistema - Administración - 
+  Orígenes del Software</command>. En la lengueta <command>Autentificación</command> encontrarás
+  el listado de firmas digitales que tu sistema acepta para validar paquetes de software firmados.
+  Para agregar tu llave pública, usa el botón <command>Importar Clave</command> para importar el
+  archivo <filename>/home/USUARIO/.gnupg/pubring.gpg</filename>. Tu firma debería aparecer en el
+  listado, como en la siguiente pantalla:
+  </para>
+
+  <para>
+  <inlinemediaobject>
+    <imageobject><imagedata fileref="img/origenes-del-software1.png" format="PNG" 
+     width="6in" /></imageobject>
+    <textobject><phrase>Listado de claves GPG de confianza en los orígenes del software</phrase></textobject>
+  </inlinemediaobject>
+  </para>
+
   </sect2>
 
   <sect2>
