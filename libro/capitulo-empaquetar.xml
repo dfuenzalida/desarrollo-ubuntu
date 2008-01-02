@@ -367,13 +367,14 @@ APT::FTPArchive::Release::Description "This repository contains ..."; ]]></progr
 
 <programlisting><![CDATA[$ apt-ftparchive -c apt.conf release dists/feisty/ \
   > dists/feisty/Release
-$ cd dists/feisty/ ]]></programlisting>
+]]></programlisting>
 
   Finalmente, utilizamos firma digital sobre este archivo de Release. Esto permitirá que,
   si hemos agregado la llave pública a nuestro depósito de firmas, el actualizador de paquetes
   valide las firmas digitales de forma automática y sin alertas de seguridad para nuestros usuarios.
 
-  <programlisting><![CDATA[$ gpg --output Release.gpg -ba Release ]]></programlisting>
+  <programlisting><![CDATA[$ cd dists/feisty/
+$ gpg --output Release.gpg -ba Release ]]></programlisting>
 
   Con esto, nuestro software queda disponible para que los usuarios agreguen la dirección web
   en la que hemos colocado el repositorio a su archivo <filename>/etc/apt/sources.list</filename> o
@@ -390,7 +391,7 @@ $ cd dists/feisty/ ]]></programlisting>
   </para>
 
   <para>
-  Una linea de Apt tiene la siguiente apariencia:
+  Una linea de APT tiene la siguiente apariencia:
 
 <programlisting><![CDATA[deb http://www.servidor.com/ruta/ release componente1 componente2 ...]]></programlisting>
 
@@ -405,6 +406,13 @@ $ cd dists/feisty/ ]]></programlisting>
   <programlisting><![CDATA[deb http://www.miservidor.com/ubuntu/ feisty universe]]></programlisting>
   </para>
 
+  <para>
+  NOTA: En el ejemplo de estructura de directorios anterior hemos usado el componente <filename>main</filename>
+  para colocar nuestros paquetes de software, por lo que la línea de APT correcta será
+
+  <programlisting><![CDATA[deb http://www.miservidor.com/ubuntu/ feisty main]]></programlisting>
+
+  </para>
 
   </sect1>
 
