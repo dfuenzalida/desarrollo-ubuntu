@@ -373,8 +373,7 @@ APT::FTPArchive::Release::Description "This repository contains ..."; ]]></progr
   si hemos agregado la llave pública a nuestro depósito de firmas, el actualizador de paquetes
   valide las firmas digitales de forma automática y sin alertas de seguridad para nuestros usuarios.
 
-  <programlisting><![CDATA[$ cd dists/feisty/
-$ gpg --output Release.gpg -ba Release ]]></programlisting>
+  <programlisting><![CDATA[$ gpg --output dists/feisty/Release.gpg -ba dists/feisty/Release ]]></programlisting>
 
   Con esto, nuestro software queda disponible para que los usuarios agreguen la dirección web
   en la que hemos colocado el repositorio a su archivo <filename>/etc/apt/sources.list</filename> o
