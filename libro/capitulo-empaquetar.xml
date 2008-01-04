@@ -413,6 +413,96 @@ APT::FTPArchive::Release::Description "This repository contains ..."; ]]></progr
 
   </para>
 
+  <sect2>
+  <title>Soporte para Internacionalización en los repositorios</title>
+
+  <para>
+  Ubuntu posee un amplio soporte para hacer que el sistema sea más accesible para usuarios muchos
+  idiomas y eso incluye la capacidad para usar descripciones de los paquetes de software instalables
+  en diferentes idiomas. La especificación del soporte para descripciones multilenguaje en los
+  repositorios se encuentra en el siguiente link: <ulink url="http://wiki.ubuntu.com">Spec</ulink>
+  </para>
+
+  <para>
+  Para utilizar traducciones de los paquetes de software, es necesario crear un directorio en el 
+  repositorio que contenga los archivos con las traducciones de la información de paquetes:
+
+  <programlisting><![CDATA[$ mkdir dists/gutsy/main/i18n ]]></programlisting>
+  </para>
+
+  <para>
+  En este directorio se colocan diferentes archivos comprimidos que siguen la siguiente convención
+  de nombres: <filename>Translation-XX.bz2</filename> donde <filename>XX</filename> es el código
+  ISO de 2 letras que identifica el idioma. En el caso de las traducciones al español, será el archivo
+  comprimido <filename>Translation-es.bz2</filename>
+  </para>
+
+  <para>
+  El contenido del archivo será un conjunto de entradas que contienen un campo 
+  <filename>Package:</filename>, un campo con la suma MD5 de la descripción original del paquete
+  en la versión en inglés (<filename>Description-md5:</filename>) y la descripción en el idioma
+  de la traducción (<filename>Description-es:</filename> para la versión en español).
+  </para>
+
+  <para>
+  Para la traducción de mi repositorio en el que tengo el paquete <filename>gtkfilesplitter</filename>,
+  el contenido del archivo <filename>dists/gutsy/main/i18n/Translation-es</filename> es
+  la siguiente:
+
+  <programlisting><![CDATA[Package: gtkfilesplitter
+Description-md5: bc3667f71f65f0ffa387067d48c2a620
+Description-es: Aplicación sencilla que troza y junta archivos con comprobación
+ Una aplicación de escritorio para dividir archivos en trozos y volver a
+ unirlos.
+ .
+ Para más información, visite http://code.google.com/p/gtkfilesplitter/
+]]></programlisting>
+
+  ... luego un salto de línea, y se repite para tantos paquetes como tengamos
+  en el repositorio.
+  </para>
+
+  <para>
+  Unos detalles adicionales para calcular la suma MD5 que se requiere colocar: La forma más
+  sencilla de realizar el cálculo es crear un archivo temporal y colocar la descripción completa
+  del paquete de software como viene en el archivo
+  <filename>dists/gutsy/main/binary-i386/Packages</filename>, sin incluir el comienzo de la línea
+  "<filename>Description: </filename>" (espacio luego de los dos puntos inclusive) de modo que quede así:
+
+  <programlisting><![CDATA[$ cat /tmp/descripcion.txt
+Simple file splitter/joiner with checksum support
+ A desktop application to split and join files
+ .
+ For more information, visit http://code.google.com/p/gtkfilesplitter
+]]></programlisting>
+
+  </para>
+
+  <para>
+  Para calcular la suma MD5 que necesitamos para la traducción, basta con usar:
+
+  <programlisting><![CDATA[$ md5sum /tmp/descripcion.txt
+bc3667f71f65f0ffa387067d48c2a620 ]]></programlisting>
+
+  y copiamos el valor de la suma MD5 en el campo que corresponde en nuestro archivo con
+  traducciones. Finalmente, el archivo debe ir comprimido con <command>bzip2</command> de
+  la siguiente forma:
+
+  <programlisting><![CDATA[$ bzip2 dists/gutsy/main/i18n/Translation-es ]]></programlisting>
+
+  De esta manera, las traducciones aparecen al actualizar la información de las actualizaciones
+  posibles en el Gestor de Actualizaciones (Update Manager):
+  </para>
+
+  <para>
+  <inlinemediaobject>
+    <imageobject><imagedata fileref="img/gestor-actualizaciones1.png" format="PNG" 
+     width="6in" /></imageobject>
+    <textobject><phrase>Traducciones al español en las actualizaciones de software</phrase></textobject>
+  </inlinemediaobject>
+  </para>
+
+  </sect2>
   </sect1>
 
 
