@@ -210,6 +210,13 @@ sub  1024g/78E9A8FA 1999-06-04
   </inlinemediaobject>
   </para>
 
+  <para>
+  El mismo proceso lo puedes realizar usando el comando <command>apt-key add</command> en una shell:
+<programlisting><![CDATA[$ sudo apt-key add /home/usuario/.gnupg/pubring.gpg
+$ sudo apt-key list
+]]></programlisting>
+  </para>
+
   </sect2>
 
   <sect2>
@@ -310,7 +317,7 @@ sub  1024g/78E9A8FA 1999-06-04
   </sect1>
 
   <sect1>
-  <title>Creación de un repositorio</title>
+  <title>Creación de un repositorio sencillo</title>
 
   <para>
   Un repositorio consiste en una estructura de carpetas publicadas en un servidor web
@@ -326,7 +333,7 @@ sub  1024g/78E9A8FA 1999-06-04
 
   <para>
   Prar crear el repositorio, se debe crear una estructura de directorios (en este ejemplo,
-  es para Ubuntu 7.04, "Feisty Fawn") en la raíz de un directorio publicado en un servidor
+  es para Ubuntu 7.10, "Gutsy Gibbon") en la raíz de un directorio publicado en un servidor
   web (puede ser Apache, pero generalmente yo uso <command>lighttpd</command> que es mucho más
   sencillo de configurar para pruebas). También estoy asumiendo que los paquetes de software
   son para arquitectura i386 (procesadores compatibles con Intel x86). Otras arquitecturas
@@ -334,21 +341,21 @@ sub  1024g/78E9A8FA 1999-06-04
   <filename>sparc</filename>.
 
 <programlisting><![CDATA[$ mkdir dists
-$ mkdir dists/feisty
-$ mkdir dists/feisty/main
-$ mkdir dists/feisty/main/binary-i386 ]]></programlisting>
+$ mkdir dists/gutsy
+$ mkdir dists/gutsy/main
+$ mkdir dists/gutsy/main/binary-i386 ]]></programlisting>
 
   Copiamos los archivos Deb (que queremos colocar en el repostorio) al directorio de destino:
 
-<programlisting><![CDATA[$ cp /tmp/source/*.deb dists/feisty/main/binary-i386 ]]></programlisting>
+<programlisting><![CDATA[$ cp /tmp/source/*.deb dists/gutsy/main/binary-i386 ]]></programlisting>
 
   Creamos los archivos de descripción de los paquetes (llamado <filename>Packages</filename>)
   y lo comprimimos:
 
-<programlisting><![CDATA[$ apt-ftparchive packages dists/feisty/main/binary-i386/ \
-  > dists/feisty/main/binary-i386/Packages
-$ cat dists/feisty/main/binary-i386/Packages | gzip -9c \
-  > dists/feisty/main/binary-i386/Packages.gz ]]></programlisting>
+<programlisting><![CDATA[$ apt-ftparchive packages dists/gutsy/main/binary-i386/ \
+  > dists/gutsy/main/binary-i386/Packages
+$ cat dists/gutsy/main/binary-i386/Packages | gzip -9c \
+  > dists/gutsy/main/binary-i386/Packages.gz ]]></programlisting>
 
   Creamos un archivo de descripción de nuestro repositorio, llamado <filename>apt.conf</filename>.
   Aqui reproduzco el que utilizan los desarrolladores de Automatix:
@@ -356,7 +363,7 @@ $ cat dists/feisty/main/binary-i386/Packages | gzip -9c \
 <programlisting><![CDATA[APT::FTPArchive::Release::Origin "automatix";
 APT::FTPArchive::Release::Label "automatix updates";
 APT::FTPArchive::Release::Suite "stable";
-APT::FTPArchive::Release::Codename "feisty";
+APT::FTPArchive::Release::Codename "gutsy";
 APT::FTPArchive::Release::Architectures "i386 source";
 APT::FTPArchive::Release::Components "main testing";
 APT::FTPArchive::Release::Description "This repository contains ..."; ]]></programlisting>
@@ -365,15 +372,15 @@ APT::FTPArchive::Release::Description "This repository contains ..."; ]]></progr
   más metadatos sobre el propósito del repositorio, las arquitecturas soportadas y la versión de
   Ubuntu o Debian para la cual queremos crear el repositorio.
 
-<programlisting><![CDATA[$ apt-ftparchive -c apt.conf release dists/feisty/ \
-  > dists/feisty/Release
+<programlisting><![CDATA[$ apt-ftparchive -c apt.conf release dists/gutsy/ \
+  > dists/gutsy/Release
 ]]></programlisting>
 
   Finalmente, utilizamos firma digital sobre este archivo de Release. Esto permitirá que,
   si hemos agregado la llave pública a nuestro depósito de firmas, el actualizador de paquetes
   valide las firmas digitales de forma automática y sin alertas de seguridad para nuestros usuarios.
 
-  <programlisting><![CDATA[$ gpg --output dists/feisty/Release.gpg -ba dists/feisty/Release ]]></programlisting>
+  <programlisting><![CDATA[$ gpg --output dists/gutsy/Release.gpg -ba dists/gutsy/Release ]]></programlisting>
 
   Con esto, nuestro software queda disponible para que los usuarios agreguen la dirección web
   en la que hemos colocado el repositorio a su archivo <filename>/etc/apt/sources.list</filename> o
@@ -395,22 +402,30 @@ APT::FTPArchive::Release::Description "This repository contains ..."; ]]></progr
 <programlisting><![CDATA[deb http://www.servidor.com/ruta/ release componente1 componente2 ...]]></programlisting>
 
   donde <command>release</command> es la versión de Ubuntu o Debian para que estamos creando el repositorio
-  (en el ejemplo anterior, era <filename>feisty</filename>). Los componentes 1, 2, etc., son los diferentes
+  (en el ejemplo anterior, era <filename>gutsy</filename>). Los componentes 1, 2, etc., son los diferentes
   componentes del repositorio de acuerdo a si son software libre parte de la distribución oficial
   (<command>main</command>) o son software con una licencia no libre (<command>restricted</command>),
   software libre no mantenido por Ubuntu (<command>universe</command>) o software ni libre ni mantenido por Ubuntu
  (<command>multiverse</command>). Generalmente nuestros repositorios caerán en una de las 2 últimas categorías,
   por lo que nuestros repositorios tendrán una línea de Apt como la siguiente:
 
-  <programlisting><![CDATA[deb http://www.miservidor.com/ubuntu/ feisty universe]]></programlisting>
+  <programlisting><![CDATA[deb http://www.miservidor.com/ubuntu/ gutsy universe]]></programlisting>
   </para>
 
   <para>
   NOTA: En el ejemplo de estructura de directorios anterior hemos usado el componente <filename>main</filename>
   para colocar nuestros paquetes de software, por lo que la línea de APT correcta será
 
-  <programlisting><![CDATA[deb http://www.miservidor.com/ubuntu/ feisty main]]></programlisting>
+  <programlisting><![CDATA[deb http://www.miservidor.com/ubuntu/ gutsy main]]></programlisting>
 
+  </para>
+
+  <para>
+  Esta es una receta para crear un repositorio de forma más o menos sencilla. Existen otras maneras
+  que permiten optimizar espacio en disco cuando existen paquetes binarios con el mismo contenido,
+  y varios releases y arquitecturas distintas en un mismo servidor y repositorio. La fuente oficial
+  de documentación para estos casos es el
+  <ulink url="www.debian.org/doc/manuals/repository-howto/repository-howto">Debian Repository HOWTO</ulink>
   </para>
 
   <sect2>
@@ -420,7 +435,9 @@ APT::FTPArchive::Release::Description "This repository contains ..."; ]]></progr
   Ubuntu posee un amplio soporte para hacer que el sistema sea más accesible para usuarios muchos
   idiomas y eso incluye la capacidad para usar descripciones de los paquetes de software instalables
   en diferentes idiomas. La especificación del soporte para descripciones multilenguaje en los
-  repositorios se encuentra en el siguiente link: <ulink url="http://wiki.ubuntu.com">Spec</ulink>
+  repositorios se encuentra en el documento
+  <ulink url="https://wiki.ubuntu.com/TranslatedPackageDescriptionsSpec">Translated Package
+  Descriptions Spec</ulink>.
   </para>
 
   <para>
@@ -482,7 +499,7 @@ Simple file splitter/joiner with checksum support
   Para calcular la suma MD5 que necesitamos para la traducción, basta con usar:
 
   <programlisting><![CDATA[$ md5sum /tmp/descripcion.txt
-bc3667f71f65f0ffa387067d48c2a620 ]]></programlisting>
+bc3667f71f65f0ffa387067d48c2a620 */tmp/descripcion.txt ]]></programlisting>
 
   y copiamos el valor de la suma MD5 en el campo que corresponde en nuestro archivo con
   traducciones. Finalmente, el archivo debe ir comprimido con <command>bzip2</command> de
@@ -500,6 +517,17 @@ bc3667f71f65f0ffa387067d48c2a620 ]]></programlisting>
      width="6in" /></imageobject>
     <textobject><phrase>Traducciones al español en las actualizaciones de software</phrase></textobject>
   </inlinemediaobject>
+  </para>
+
+  <para>
+  Finalmente, la lista de cambios que debería aparecer en la lengueta <command>Cambios</command>
+  sólo aparece para paquetes que se encuentren oficialmente en la distribución. Revisé el
+  código y en el caso de Ubuntu, el listado de cambios se descarga desde el servidor
+  <filename>changelogs.ubuntu.com</filename> siguiendo una convención de directorios, que en caso
+  de un paquete como <filename>abiword</filename> sería 
+  <filename>http://changelogs.ubuntu.com/changelogs/pool/main/a/abiword/abiword_2.4.6-3ubuntu2/changelog</filename>. En el caso de Debian, el listado de cambios se obtiene desde su propio servidor, y en el ejemplo
+  anterior, la dirección es
+  <filename>http://changelogs.debian.net/abiword</filename>
   </para>
 
   </sect2>
