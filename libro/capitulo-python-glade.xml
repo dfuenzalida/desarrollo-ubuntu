@@ -174,5 +174,16 @@ if __name__ == "__main__":
 
   </sect1>
 
+  <sect1>
+  <title>Soporte multilenguaje en la interfaz de usuario</title>
+
+  <para>
+  Si te has fijado en las capturas de pantalla anteriores, notarás que la interfaz de usuario
+  tiene casi todos sus elementos en idioma inglés. Los únicos elementos en español que aparecen
+  son los botones. Esto no es casualidad.
+  </para>
+
+  </sect1>
+
 </chapter>
 
