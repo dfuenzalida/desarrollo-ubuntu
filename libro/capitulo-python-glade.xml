@@ -384,8 +384,8 @@ $ msgfmt es.po -o locale/es/LC_MESSAGES/gtkfilesplitter.mo
   <para>
   Para un mayor detalle sobre el uso de Python, Glade y GTK, junto con instrucciones detalladas
   para problemas que puedes encontrar al desarrollar, revisa este enlace a la este enlace a las
-  <ulink url="http://faq.pygtk.org/index.py?req=show&file=faq22.002.htp">Preguntas Frecuentes de PyGTK</ulink>
-  (en inglés).
+  <ulink url="http://faq.pygtk.org/">Preguntas Frecuentes de PyGTK</ulink> y en particular a la
+  pregunta "How do I internationalize a PyGTK and libglade program?" (en inglés).
   </para>
 
   </sect1>
