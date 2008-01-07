@@ -180,8 +180,81 @@ if __name__ == "__main__":
   <para>
   Si te has fijado en las capturas de pantalla anteriores, notarás que la interfaz de usuario
   tiene casi todos sus elementos en idioma inglés. Los únicos elementos en español que aparecen
-  son los botones. Esto no es casualidad.
+  son los botones. Esto no es casualidad, sino una convención utilizada proveer soporte multilenguaje
+  en las aplicaciones.
   </para>
+
+  <para>
+  Lo que se hace es utilizar un conjunto de archivos que proveen las traducciones de todos los
+  mensajes de la interfaz de usuario de nuestra aplicación. Dependiendo de los archivos de traducciones
+  que se distribuyan con el instalador, la aplicación podrá estar disponible para más idiomas. En
+  este caso, utilizamos el soporte de la biblioteca GNU Gettext.
+  </para>
+
+  <para>
+  En nuestro programa Python, utilizamos la función <filename>_('')</filename> sobre todos los 
+  mensajes que se despliegan al usuario, de forma que
+
+  <programlisting><![CDATA[  print ("Hola Mundo")
+  s = "Error: %s (%s)" % (a, b)
+]]></programlisting>
+
+  se convierten en
+
+  <programlisting><![CDATA[  print _("Hola Mundo")
+  s = _("Error: %s (%s)") % (a, b)
+]]></programlisting>
+
+  </para>
+
+  <para>
+  Luego, para diferenciar las traducciones de nuestra aplicación de las del resto del sistema,
+  utilizamos el nombre de nuestra aplicación, que debe ser diferente a las otras aplicaciones
+  que se encuentren en nuestro sistema (no debe ser un nombre ambiguo).
+  </para>
+
+  <para>
+  Para usar la biblioteca <command>gettext</command> desde Python, usaremos los siguientes
+  imports al inicio de nuestra aplicación:
+
+  <programlisting><![CDATA[import locale, gettext
+
+APP = 'gtkfilesplitter'
+DIR = '/usr/share/locale'
+
+_ = gettext.gettext
+
+try:
+  import pygtk
+  pygtk.require("2.0")
+except:
+  pass
+try:
+  import gtk
+  import gtk.glade
+except:
+  sys.exit(1)
+
+gettext.bindtextdomain(APP, DIR)
+gettext.textdomain(APP)
+gtk.glade.bindtextdomain(APP, DIR)
+gtk.glade.textdomain(APP)
+]]></programlisting>
+
+  Para crear las traducciones utilizamos el programa xgettext, que es parte del paquete
+  <filename>gettext</filename> por lo que lo instalamos con:
+
+  <programlisting><![CDATA[$ sudo apt-get install gettext ]]></programlisting>
+
+  Este programa nos permite extraer todos los mensajes de nuestro código fuente a un archivo
+  con extensión POT (Portable Object Template), que utilizaremos como base para las traducciones
+  de nuestro software.
+
+  <programlisting><![CDATA[$ xgettext -k_ -kN_ -o messages.pot *.py ]]></programlisting>
+
+  </para>
+
+
 
   </sect1>
 
