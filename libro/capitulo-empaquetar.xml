@@ -366,12 +366,12 @@ Description: Simple file splitter/joiner with checksum support
 
 ...
 install: build
-	dh_testdir
-	dh_testroot
-	dh_clean -k 
-	dh_installdirs
+  dh_testdir
+  dh_testroot
+  dh_clean -k 
+  dh_installdirs
 
-	$(MAKE) install DESTDIR=$(CURDIR)/debian/gtkfilesplitter
+  $(MAKE) install DESTDIR=$(CURDIR)/debian/gtkfilesplitter
 ...
 ]]></programlisting>
 
@@ -445,7 +445,7 @@ install: make-install-dirs install-po
   cd $(DESTDIR)$(PREFIX)/bin && \
   ln -sf ../share/gtkfilesplitter/gtkfilesplitter.py gtkfilesplitter && \
   chmod 755 gtkfilesplitter
-		
+    
 install-po:
  
   # Instalo los archivos de traducciones (.mo)
@@ -456,7 +456,7 @@ install-po:
   done
 
 po-dir:
-	for lang in $(PO); do mkdir -p locale/$$lang/LC_MESSAGES/ ; done
+  for lang in $(PO); do mkdir -p locale/$$lang/LC_MESSAGES/ ; done
 
 po-data: po-dir
   for lang in $(PO); \
@@ -532,35 +532,38 @@ include /usr/share/cdbs/1/class/python-distutils.mk
   </para>
   </sect3>
 
-	<sect3>
-					<title>Validación de paquetes con Lintian y Linda</title>
-					<para>
-									Luego de tanto esfuerzo, es posible que hayamos omitido algún paso,
-									u omitido alguna información que venía por completar en alguna plantilla
-									de documentos, o en general, errores menores o no conformidad con las
-									políticas y convenciones de Debian para la instalación de Software
-									(existen restricciones a donde se pueden colocar archivos, bibliotecas
-									y con qué permisos, además de las políticas para Python y Java).
-					</para>
+  <sect3>
+          <title>Validación de paquetes con Lintian y Linda</title>
+          <para>
+                  Luego de tanto esfuerzo, es posible que hayamos omitido algún paso,
+                  u omitido alguna información que venía por completar en alguna plantilla
+                  de documentos, o en general, errores menores o no conformidad con las
+                  políticas y convenciones de Debian para la instalación de Software
+                  (existen restricciones a donde se pueden colocar archivos, bibliotecas
+                  y con qué permisos, además de las políticas para Python y Java).
+          </para>
 
-					<para>
-									Para revisar la conformidad de nuestros paquetes de software con estas 
-									restricciones y convenciones, existe un par de programas, llamados
-									<command>lintian</command> y <command>linda</command> que realizan estas
-									tareas y reportan advertencias y errores que contienen nuestros paquetes.
+          <para>
+                  Para revisar la conformidad de nuestros paquetes de software con estas 
+                  restricciones y convenciones, existe un par de programas, llamados
+                  <command>lintian</command> y <command>linda</command> que realizan estas
+                  tareas y reportan advertencias y errores que contienen nuestros paquetes.
 
-									<programlisting><![CDATA[$ lintian gtkfilesplitter_0.1.3-0ubuntu3_i386.deb
+                  <programlisting><![CDATA[$ lintian gtkfilesplitter_0.1.3-0ubuntu3_i386.deb
 W: gtkfilesplitter: binary-without-manpage usr/bin/gtkfilesplitter
 W: gtkfilesplitter: package-contains-empty-directory usr/share/pixmaps
 W: gtkfilesplitter: package-contains-empty-directory usr/share/gnome/help/gtkfilesplitter/C
-W: gtkfilesplitter: binary-without-manpage usr/bin/gtkfilesplitter
 ...
 E: gtkfilesplitter: debian-changelog-file-contains-invalid-address denis@laptop
 ...
 ]]></programlisting>
-					</para>
 
-	</sect3>
+		  En este caso, las advertencias son: El paquete no contiene página de manual,
+		  el paquete contiene directorios vacíos. El error es que en las entradas
+		  del archivo de ChangeLog aparecen direcciones de correo no válidas.
+          </para>
+
+  </sect3>
 
   </sect2>
 
@@ -568,27 +571,27 @@ E: gtkfilesplitter: debian-changelog-file-contains-invalid-address denis@laptop
     <title>Creación de un paquete Debian con Java, Ant y CDBS</title>
   </sect2>
 
-	<para>
-					Durante varios años, Java era una alternativa atractiva (sobretodo a nivel de empresa)
-					para desarrollo de aplicaciones, pero no había atraido de manera importante la
-					atención de los desarrolladores de aplicaciones de escritorio. Al momento de escribir
-					estas líneas, me parece que esto va a cambiar de forma significativa.
-	</para>
+  <para>
+          Durante varios años, Java era una alternativa atractiva (sobretodo a nivel de empresa)
+          para desarrollo de aplicaciones, pero no había atraido de manera importante la
+          atención de los desarrolladores de aplicaciones de escritorio. Al momento de escribir
+          estas líneas, me parece que esto va a cambiar de forma significativa.
+  </para>
 
-	<para>
-					Java se está convirtiendo rápidamente en una plataforma Open Source. Sun Microsystems
-					ya ha liberado la mayor parte del código fuente de la máquina virtual y de las
-					bibliotecas de clases mediante el proyecto OpenJDK, de forma que está a la par con
-					otras alternativas que deberían ser más o menos equivalentes, como el proyecto Mono.
-	</para>
+  <para>
+          Java se está convirtiendo rápidamente en una plataforma Open Source. Sun Microsystems
+          ya ha liberado la mayor parte del código fuente de la máquina virtual y de las
+          bibliotecas de clases mediante el proyecto OpenJDK, de forma que está a la par con
+          otras alternativas que deberían ser más o menos equivalentes, como el proyecto Mono.
+  </para>
 
-	<para>
-					De hecho, si bien existen paquetes que permiten instalar Java en Ubuntu (
-					<filename>sun-java5</filename> y <filename>sun-java6</filename>), estos
-					requieren aprobar una licencia por separado en el momento de instalarse.
-					Hoy ya existe una implementación basada sólo en Software Libre (en el paquete
-					<filename>icedtea-java7</filename>)
-	</para>
+  <para>
+          De hecho, si bien existen paquetes que permiten instalar Java en Ubuntu (
+          <filename>sun-java5</filename> y <filename>sun-java6</filename>), estos
+          requieren aprobar una licencia por separado en el momento de instalarse.
+          Hoy ya existe una implementación basada sólo en Software Libre (en el paquete
+          <filename>icedtea-java7</filename>).
+  </para>
 
 
   </sect1>
