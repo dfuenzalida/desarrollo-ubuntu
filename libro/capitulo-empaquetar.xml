@@ -344,7 +344,7 @@ Description: Simple file splitter/joiner with checksum support
   <sect3>
   <title>El archivo debian/rules</title>
   <para>
-  El archivo <filename>debian/rules</filename> en realidad es un <command>makefile</command>(un
+  El archivo <filename>debian/rules</filename> en realidad es un <command>makefile</command> (un
   archivo con instrucciones para GNU Make) que sigue un cierto patrón de comandos que corresponden
   con una gran cantidad de tareas que se realizan al instalar un paquete de software en nuestro
   sistema: desde instalar la documentación (páginas man, etc.), instalar íconos en el menú de
@@ -360,7 +360,10 @@ Description: Simple file splitter/joiner with checksum support
   En realidad lo único especial que hace es invocar a un Makefile en la raíz del proyecto, indicando
   que los archivos creados deben almacenarse en el directorio <filename>debian/gtkfilesplitter</filename>.
 
-<programlisting><![CDATA[# http://gtkfilesplitter.googlecode.com/svn/trunk/debian/rules
+<programlisting><![CDATA[# ver archivo completo en:
+# http://gtkfilesplitter.googlecode.com/svn/trunk/debian/rules
+
+...
 install: build
 	dh_testdir
 	dh_testroot
@@ -368,7 +371,6 @@ install: build
 	dh_installdirs
 
 	$(MAKE) install DESTDIR=$(CURDIR)/debian/gtkfilesplitter
-
 ...
 ]]></programlisting>
 
@@ -382,11 +384,124 @@ install: build
   al directorio <filename>debian/MiPaquete/usr/share/icons/MiIcono.png</filename>.
   </para>
 
+  <para>
+  El contenido (comentado) del Makefile en la raíz del proyecto es:
+<programlisting><![CDATA[# Traducciones disponibles:
+PO = es pl 
+
+PREFIX ?= /usr
+
+all: check po-data
+  @echo "Done"
+  @echo "Type: make install now"
+
+check:
+  @/bin/echo -n "Checking for Python... "
+  @which python || ( echo "Not found." && /bin/false )
+  @./check.py
+
+# borrar archivos de resplados, etc.
+clean:
+  find . -type f -iregex '.*~$$'  -print | xargs rm -rf
+  find . -type d -iregex '.*\.svn$$'  -print | xargs rm -rf
+  find . -type f -iregex '.*\.pyc$$'  -print | xargs rm -rf
+  find . -type f -iregex '.*\.gladep$$'  -print | xargs rm -rf
+  find . -type f -iregex '.*\.bak$$'  -print | xargs rm -rf
+
+make-install-dirs: make-install-dirs-po
+
+  # Crear directorios para copiar los archivos
+  mkdir -p $(DESTDIR)$(PREFIX)/bin
+  mkdir -p $(DESTDIR)$(PREFIX)/share/applications
+  mkdir -p $(DESTDIR)$(PREFIX)/share/gtkfilesplitter
+  mkdir -p $(DESTDIR)$(PREFIX)/share/pixmaps
+  mkdir -p $(DESTDIR)$(PREFIX)/share/gnome/help/gtkfilesplitter/C
+  mkdir -p $(DESTDIR)$(PREFIX)/share/locale
+
+make-install-dirs-po:
+
+  # Para cada idioma:
+  # Crear un directorio para colocar los archivos de traducción
+  for lang in $(PO); \
+    do mkdir -p $(DESTDIR)$(PREFIX)/share/locale/$$lang/LC_MESSAGES; \
+  done
+
+install: make-install-dirs install-po
+
+  # Copiar el ejecutable Python, con permiso de ejecución y lectura para todos
+  install -m 755 gtkfilesplitter.py $(DESTDIR)$(PREFIX)/share/gtkfilesplitter
+
+  # Copiar el archivo Glade de interfaz de usuario
+  install -m 644 gtkfilesplitter.glade $(DESTDIR)$(PREFIX)/share/gtkfilesplitter
+
+  # Copiar los íconos de la aplicación
+  install -m 644 gtkfilesplitter*.png $(DESTDIR)$(PREFIX)/share/gtkfilesplitter
+
+  # Copiar el archivo .desktop (que crea el ícono en el menú)
+  install -m 644 gtkfilesplitter.desktop $(DESTDIR)$(PREFIX)/share/applications/
+
+  # Creo un link simbólico al script en /usr/bin
+  cd $(DESTDIR)$(PREFIX)/bin && \
+  ln -sf ../share/gtkfilesplitter/gtkfilesplitter.py gtkfilesplitter && \
+  chmod 755 gtkfilesplitter
+		
+install-po:
+ 
+  # Instalo los archivos de traducciones (.mo)
+  for lang in $(PO); \
+    do install -m 644 \
+      locale/$$lang/LC_MESSAGES/* \
+      $(DESTDIR)$(PREFIX)/share/locale/$$lang/LC_MESSAGES/; \
+  done
+
+po-dir:
+	for lang in $(PO); do mkdir -p locale/$$lang/LC_MESSAGES/ ; done
+
+po-data: po-dir
+  for lang in $(PO); \
+    do msgfmt locale/$$lang.po -o \
+      locale/$$lang/LC_MESSAGES/gtkfilesplitter.mo; \
+  done
+
+po-gen:
+
+  # Generación de archivos .pot y .po a partir del código
+  intltool-extract --type=gettext/glade gtkfilesplitter.glade
+  xgettext -k_ -kN_ -o locale/messages.pot *.py *.h
+  for lang in $(PO); \
+    do msgmerge -U locale/$$lang.po locale/gtkfilesplitter.pot; \
+  done
+
+]]></programlisting>
+
+  Lo fundamental es entender las tareas que realiza el target <command>install</command>: los
+  directorios en que se copian los archivos, etc.
+  </para>
+
+  <para>
+  Debido la complejidad que supone crear uno de estos archivos y a que muchas de estas tareas
+  se repiten de forma bastante rutinaria, se creó un proyecto llamado el 
+  <ulink url="https://perso.duckcorp.org/duck/cdbs-doc/cdbs-doc.xhtml">Common Debian Build
+  System</ulink>, que consiste en un conjunto de Makefiles ya creados para un conjunto de proyectos
+  diferentes, de forma que bastaría con incluir estas recetas en tus archivos 
+  <filename>debian/rules</filename> para hacerlos de forma mucho más sencilla. Lamentablemente
+  la documentación sobre CDBS es bastante escasa, pero la idea es que para un proyecto Python con
+  una convención de directorios estándar, el archivo podría quedar tan sencillo como:
+
+<programlisting><![CDATA[#!/usr/bin/make -f
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/class/python-distutils.mk
+]]></programlisting>
+
+  De hecho, pude empaquetar con muy poco código una aplicación desarrollada en Java y compilada
+  con Ant, como veremos a continuación.
+  </para>
+
   </sect3>
 
 
   <sect3>
-  <title>dpkg-buildpackage</title>
+  <title>Construir el paquete con dpkg-buildpackage</title>
 
   <para>
   Para producir el paquete firmado, necesitamos el identificador corto de la firma digital (en el ejemplo
