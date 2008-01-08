@@ -360,7 +360,8 @@ Description: Simple file splitter/joiner with checksum support
   En realidad lo único especial que hace es invocar a un Makefile en la raíz del proyecto, indicando
   que los archivos creados deben almacenarse en el directorio <filename>debian/gtkfilesplitter</filename>.
 
-<programlisting><![CDATA[# ver archivo completo en:
+  <programlisting><![CDATA[# Archivo debian/rules del proyecto gtkfilesplitter
+# ver archivo completo en:
 # http://gtkfilesplitter.googlecode.com/svn/trunk/debian/rules
 
 ...
@@ -494,7 +495,7 @@ include /usr/share/cdbs/1/class/python-distutils.mk
 ]]></programlisting>
 
   De hecho, pude empaquetar con muy poco código una aplicación desarrollada en Java y compilada
-  con Ant, como veremos a continuación.
+  con Ant, como se verá en la siguiente sección.
   </para>
 
   </sect3>
@@ -531,7 +532,38 @@ include /usr/share/cdbs/1/class/python-distutils.mk
   </para>
   </sect3>
 
+	<sect3>
+					<title>Validación de paquetes con Lintian y Linda</title>
+					<para>
+									Luego de tanto esfuerzo, es posible que hayamos omitido algún paso,
+									u omitido alguna información que venía por completar en alguna plantilla
+									de documentos, o en general, errores menores o no conformidad con las
+									políticas y convenciones de Debian para la instalación de Software
+									(existen restricciones a donde se pueden colocar archivos, bibliotecas
+									y con qué permisos, además de las políticas para Python y Java).
+					</para>
+
+					<para>
+									Para revisar la conformidad de nuestros paquetes de software con estas 
+									restricciones y convenciones, existe un par de programas, llamados
+									<command>lintian</command> y <command>linda</command> que realizan estas
+									tareas y reportan advertencias y errores que contienen nuestros paquetes.
+					</para>
+
+					<!-- TODO: Agregar ejemplos de instalacion y uso -->
+	</sect3>
+
   </sect2>
+
+  <sect2>
+    <title>Creación de un paquete Debian con Java, Ant y CDBS</title>
+  </sect2>
+
+	<para>
+    ...
+	</para>
+
+
   </sect1>
 
   <sect1>
