@@ -21,7 +21,23 @@
     </authorgroup>
 
     <abstract>
-    <para>...</para>
+    <para>Este documento intentará ilustrar y resumir una gran cantidad de conocimientos más o menos
+    dispersos que encontré mientras aprendía a desarrollar Software Libre en Linux, y en especial
+    mientras desarrollaba software utilizando Ubuntu GNU/Linux, que es una distribución muy popular
+    basada en Debian.
+    </para>
+
+    <para>
+    El texto pretende servir como una colección de ejemplos, recetas y atajos a una serie de problemas
+    que un programador puede encontrar al hacer un esfuerzo adicional para empaquetar y distribuir la
+    aplicación para alcanzar un universo potencialmente mayor de usuarios.</para>
+
+    <para>Finalmente, este documento también me sirve para agradecer a una enorme cantidad de personas,
+    muchas de las cuales han trabajado durante años en uno de los esfuerzos que más admiro: 
+    crear una enorme colección de Software Libre que puede ser utilizado universalmente y sin restricciones.
+    Mis respetos para todos ustedes.
+    </para>
+
     </abstract>
 
   </bookinfo>
@@ -65,6 +81,7 @@
   </chapter>
   -->
 
+  <!--
   <glossary>
 
 	<glossentry><glossterm>foo</glossterm>
@@ -77,5 +94,6 @@
 	</glossentry>
 
   </glossary>
+  -->
 
 </book>
