@@ -2,7 +2,7 @@ Source: privatewiki
 Section: free
 Priority: extra
 Maintainer: Denis Fuenzalida <denis.fuenzalida@gmail.com>
-Build-Depends: cdbs, debhelper (>= 5), java2-runtime
+Build-Depends: cdbs, debhelper (>= 5), java2-runtime, ant
 Standards-Version: 3.7.2
 
 Package: privatewiki
