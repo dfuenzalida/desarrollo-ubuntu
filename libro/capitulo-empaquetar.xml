@@ -344,8 +344,44 @@ Description: Simple file splitter/joiner with checksum support
   <sect3>
   <title>El archivo debian/rules</title>
   <para>
-  ...
+  El archivo <filename>debian/rules</filename> en realidad es un <command>makefile</command>(un
+  archivo con instrucciones para GNU Make) que sigue un cierto patrón de comandos que corresponden
+  con una gran cantidad de tareas que se realizan al instalar un paquete de software en nuestro
+  sistema: desde instalar la documentación (páginas man, etc.), instalar íconos en el menú de
+  aplicaciones, instalar bibliotecas, etc.
   </para>
+
+  <para>
+  Las tareas a realizar durante la instalación dependen muchísimo de la naturaleza del software
+  que desarrollemos y de los componentes formen parte del mismo. Así, es posible que no incluyamos
+  archivo de ejemplo, etc. El archivo <filename>rules</filename> creado contiene una gran cantidad
+  de tareas que pueden comentarse en caso de que no apliquen. En el caso de mi programa, utilicé
+  como plantilla una versión antigua de otro software (Apt On CD), que también esta escrito en Python.
+  En realidad lo único especial que hace es invocar a un Makefile en la raíz del proyecto, indicando
+  que los archivos creados deben almacenarse en el directorio <filename>debian/gtkfilesplitter</filename>.
+
+<programlisting><![CDATA[# http://gtkfilesplitter.googlecode.com/svn/trunk/debian/rules
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k 
+	dh_installdirs
+
+	$(MAKE) install DESTDIR=$(CURDIR)/debian/gtkfilesplitter
+
+...
+]]></programlisting>
+
+  </para>
+
+  <para>
+  Al crear nuestro paquete, una copia de los archivos agregados al sistema se agrega dentro del directorio
+  <filename>debian</filename> en un directorio con el mismo nombre del paquete que estamos creando.
+  Por ejemplo: si al instalar mi software, copio un ícono en formato PNG en
+  <filename>/usr/share/icons/MiIcono.png</filename>, lo que debe hacer el Makefile en realidad es copiarlo
+  al directorio <filename>debian/MiPaquete/usr/share/icons/MiIcono.png</filename>.
+  </para>
+
   </sect3>
 
 
