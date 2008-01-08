@@ -226,7 +226,9 @@ $ sudo apt-key list
   Para crear un paquete Debian, el proceso consta de copiar el código fuente de nuestro proyecto
   y agregar unos archivos de datos extras utilizados por las herramientas que forman los paquetes.
   Cuando el código se obtiene desde un tarball o desde un repositorio de código fuente, este proceso
-  de agregar archivos de Debian se llama "Debianización".
+  de agregar archivos de Debian se llama "Debianización". La referencia oficial para la creación
+  de paquetes en Debian y Ubuntu es el documento
+  <ulink url="http://www.debian.org/doc/maint-guide/">Debian New Maintainers' Guide</ulink> (en inglés).
   </para>
 
   <para>
@@ -271,6 +273,9 @@ $ sudo apt-key list
   archivo de cambios y un archivo extra.
   </para>
 
+  <sect3>
+  <title>El archivo debian/changelog</title>
+
   <para>
   Si es necesario indicar que este paquete tiene algunas correcciones producto de una mejora o debido
   a que se aplicó algún parche, se puede indicar en un archivo de ChangeLog. Existe un utilitario que
@@ -282,8 +287,70 @@ $ sudo apt-key list
   <para>
   Este programa abrirá el archivo <filename>debian/changelog</filename> del proyecto y agregará unas
   lineas de contexto para poder agregar la lista de cambios de esta versión de nuestro programa.
-  Guardamos los cambios al archivo, salimos del editor y estamos listos para producir el paquete Debian.
+  Guardamos los cambios al archivo y salimos del editor.
   </para>
+  </sect3>
+
+  <sect3>
+  <title>El archivo debian/control</title>
+  
+  <para>
+  El siguiente archivo relevante que debemos modificar es el archivo debian/control, que es el
+  que provee información sobre el mantenedor del paquete de software, los paquetes que son necesarios
+  al momento de construir el paquete, y las dependencias al momento de ejecutar el software.
+  Vale la pena destacar que no necesariamente son iguales. En el software desarrollado en lenguaje
+  C es típico que se necesitan bibliotecas para desarrollos (ej. <filename>libXXXYYYZZZ-dev</filename>)
+  que luego no son necesarias en tiempo de ejecución.
+  </para>
+
+  <para>
+  El campo <command>Description</command> sigue una convención: la primera línea, justo después de
+  <filename>Description: </filename> contiene una descripción corta (de hasta 60 caracteres), y luego
+  una descripción que puede tener varias líneas de hasta 80 caracteres, que comiencen con un espacio
+  en blanco. Para hacer un punto aparte se deja una línea con un espacio y un punto.
+  </para>
+
+  <para>
+  En el caso de nuestro programa de ejemplo, el contenido del archivo debian/control es el siguiente:
+<programlisting><![CDATA[Source: gtkfilesplitter
+Section: admin
+Priority: optional
+Maintainer: Denis Fuenzalida <denis.fuenzalida@gmail.com>
+Build-Depends: debhelper (>= 5), python-support (>= 0.3)
+Standards-Version: 3.7.2.2
+
+Package: gtkfilesplitter
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}, ${python:Depends}, python, python-glade2, python-gtk2
+Description: Simple file splitter/joiner with checksum support
+ A desktop application to split and join files
+ .
+ For more information, visit http://code.google.com/p/gtkfilesplitter
+]]></programlisting>
+
+  </para>
+  </sect3>
+
+  <sect3>
+  <title>El archivo debian/copyright</title>
+  <para>
+  En general, este archivo debería venir pre-llenado con una plantilla de la licencia que se haya
+  seleccionado al momento de invocar a <command>dh_make</command> y sólo será necesario cambiar
+  la información de contacto del creador del software y eventualmente revisar que los términos
+  de la licencia sean los que el desarrollador ha acordado.
+  </para>
+  </sect3>
+
+  <sect3>
+  <title>El archivo debian/rules</title>
+  <para>
+  ...
+  </para>
+  </sect3>
+
+
+  <sect3>
+  <title>dpkg-buildpackage</title>
 
   <para>
   Para producir el paquete firmado, necesitamos el identificador corto de la firma digital (en el ejemplo
@@ -294,7 +361,6 @@ $ sudo apt-key list
   </para>
 
   <para>
-  <!-- TODO verificar el uso de fakeroot -->
   Las opciones utilizadas son <filename>-sgpg</filename> para utilizar firma GnuPG. La opción
   <filename>-k</filename> es el identificador de la llave a utilizar. Para crear los paquetes se
   requiere utilizar un pseudoambiente de root, para lo que se usa la herramienta
@@ -312,6 +378,7 @@ $ sudo apt-key list
   Felicitaciones! En este momento deberías contar con tu programa empaquetado apropiadamente
   como un archivo Deb.
   </para>
+  </sect3>
 
   </sect2>
   </sect1>
