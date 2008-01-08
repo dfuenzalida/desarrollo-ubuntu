@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+
+<project name="hsqldb" default="jar">
+
+   <property name="src" value="src"/>
+
+   <target name="clean">
+       <delete failonerror="false">
+           <fileset dir="lib" includes="**.jar" />
+       </delete>
+       <delete dir="lib"  failonerror="false" />
+       <delete dir="classes"  failonerror="false" />
+   </target>
+
+   <target name="compile">
+     <mkdir dir="classes" />
+     <!--
+     <mkdir dir="classes/resources" />
+     -->
+     <javac srcdir="src" destdir="classes" />
+     <!--
+     <copy todir="classes/resources">
+         <fileset dir="resources" includes="**/*.*" />
+     </copy>
+     -->
+   </target>
+
+   <target name="jar" depends="clean,compile">
+     <mkdir dir="lib" />
+     <jar jarfile="lib/privatewiki.jar"
+        basedir="classes"
+        compress="true"
+        >
+         <fileset dir="classes" />
+         <fileset dir="resources" />
+         <manifest>
+             <attribute name='Main-Class' value='privatewiki.Main'/>
+         </manifest>
+      </jar>
+    </target>
+
+</project>
+

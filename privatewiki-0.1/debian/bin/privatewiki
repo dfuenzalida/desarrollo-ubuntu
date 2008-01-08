@@ -1,0 +1,25 @@
+#!/bin/sh
+
+set -e
+
+# Test if ${HOME}/.privatewiki exists
+
+DATADIR="$HOME"/.privatewiki
+if [ -d $DATADIR ]; then
+    echo "data dir found"
+else
+    mkdir ${HOME}/.privatewiki
+fi
+
+DATAFILE="$HOME"/.privatewiki/data.zip
+
+if [ -e $DATAFILE ]; then
+        echo "datafile ok"
+else
+        echo "no datafile"
+	cp /usr/share/privatewiki/data.zip ${HOME}/.privatewiki/data.zip
+fi
+
+cd "$HOME"/.privatewiki
+java -jar /usr/share/java/privatewiki.jar
+

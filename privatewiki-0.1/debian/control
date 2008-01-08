@@ -1,0 +1,25 @@
+Source: privatewiki
+Section: free
+Priority: extra
+Maintainer: Denis Fuenzalida <denis.fuenzalida@gmail.com>
+Build-Depends: cdbs, debhelper (>= 5), java2-runtime
+Standards-Version: 3.7.2
+
+Package: privatewiki
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, java2-runtime
+Description: Simple application to take notes, with encription support
+ Privatewiki is a simple application to help you in the way you store
+ your notes today.
+ .
+ Today, you possibly take your notes in paper, plain textfiles all over
+ your hard-disk and such. You use them once and send them to the trash,
+ so you lose context and relationship they have with previous annotations.
+ .
+ Privatewiki helps you to store your notes in a simple application, based
+ in open standards. Your notes are all added to a single datafile which
+ you can carry in a USB pendrive.
+ .
+ Each document displays in a wiki-style, so you see related concepts and
+ you can navigate your annotations easily.
+

@@ -1,0 +1,22 @@
+#!/usr/bin/make -f
+
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/class/ant.mk
+
+JAVA_HOME := /usr/lib/jvm/java-1.5.0-sun
+ANT_HOME := /usr/share/ant
+
+install/privatewiki:: DEB_FINALDIR=$(CURDIR)/debian/privatewiki
+install/privatewiki::
+	install -d $(DEB_FINALDIR)/usr/bin
+	install -d $(DEB_FINALDIR)/usr/share/privatewiki
+	install -d $(DEB_FINALDIR)/usr/share/java
+	install -d $(DEB_FINALDIR)/usr/share/pixmaps
+	install -d $(DEB_FINALDIR)/usr/share/applications
+	install -m 755 $(CURDIR)/debian/bin/privatewiki $(DEB_FINALDIR)/usr/bin/
+	install -m 755 $(CURDIR)/bin/data.zip $(DEB_FINALDIR)/usr/share/privatewiki/data.zip
+	install -m 755 $(CURDIR)/resources/icons/private.png $(DEB_FINALDIR)/usr/share/pixmaps/privatewiki.png
+	install -m 755 $(CURDIR)/debian/bin/privatewiki.desktop $(DEB_FINALDIR)/usr/share/applications/privatewiki.desktop
+	install -m 644 $(CURDIR)/lib/privatewiki.jar $(DEB_FINALDIR)/usr/share/java/privatewiki.jar
+
+
