@@ -544,12 +544,12 @@ include /usr/share/cdbs/1/class/python-distutils.mk
           </para>
 
           <para>
-                  Para revisar la conformidad de nuestros paquetes de software con estas 
-                  restricciones y convenciones, existe un par de programas, llamados
-                  <command>lintian</command> y <command>linda</command> que realizan estas
-                  tareas y reportan advertencias y errores que contienen nuestros paquetes.
+          Para revisar la conformidad de nuestros paquetes de software con estas 
+          restricciones y convenciones, existe un par de programas, llamados
+          <command>lintian</command> y <command>linda</command> que realizan estas
+          tareas y reportan advertencias y errores que contienen nuestros paquetes.
 
-                  <programlisting><![CDATA[$ lintian gtkfilesplitter_0.1.3-0ubuntu3_i386.deb
+          <programlisting><![CDATA[$ lintian gtkfilesplitter_0.1.3-0ubuntu3_i386.deb
 W: gtkfilesplitter: binary-without-manpage usr/bin/gtkfilesplitter
 W: gtkfilesplitter: package-contains-empty-directory usr/share/pixmaps
 W: gtkfilesplitter: package-contains-empty-directory usr/share/gnome/help/gtkfilesplitter/C
@@ -558,11 +558,9 @@ E: gtkfilesplitter: debian-changelog-file-contains-invalid-address denis@laptop
 ...
 ]]></programlisting>
 
-		  En este caso, las advertencias son: El paquete no contiene página de manual,
-		  el paquete contiene directorios vacíos. El error es que en las entradas
-		  del archivo de ChangeLog aparecen direcciones de correo no válidas.
-          </para>
-
+          En este caso, las advertencias son: El paquete no contiene página de manual,
+          el paquete contiene directorios vacíos. El error es que en las entradas
+          del archivo de ChangeLog aparecen direcciones de correo no válidas.</para> 
   </sect3>
 
   </sect2>
