@@ -274,7 +274,7 @@ $ sudo apt-key list
   </para>
 
   <sect3>
-  <title>El archivo debian/changelog</title>
+    <title>El archivo <filename>debian/changelog</filename></title>
 
   <para>
   Si es necesario indicar que este paquete tiene algunas correcciones producto de una mejora o debido
@@ -292,7 +292,7 @@ $ sudo apt-key list
   </sect3>
 
   <sect3>
-  <title>El archivo debian/control</title>
+    <title>El archivo <filename>debian/control</filename></title>
   
   <para>
   El siguiente archivo relevante que debemos modificar es el archivo debian/control, que es el
@@ -332,7 +332,7 @@ Description: Simple file splitter/joiner with checksum support
   </sect3>
 
   <sect3>
-  <title>El archivo debian/copyright</title>
+    <title>El archivo <filename>debian/copyright</filename></title>
   <para>
   En general, este archivo debería venir pre-llenado con una plantilla de la licencia que se haya
   seleccionado al momento de invocar a <command>dh_make</command> y sólo será necesario cambiar
@@ -342,7 +342,7 @@ Description: Simple file splitter/joiner with checksum support
   </sect3>
 
   <sect3>
-  <title>El archivo debian/rules</title>
+    <title>El archivo <filename>debian/rules</filename></title>
   <para>
   El archivo <filename>debian/rules</filename> en realidad es un <command>makefile</command> (un
   archivo con instrucciones para GNU Make) que sigue un cierto patrón de comandos que corresponden
@@ -567,30 +567,260 @@ E: gtkfilesplitter: debian-changelog-file-contains-invalid-address denis@laptop
 
   <sect2>
     <title>Creación de un paquete Debian con Java, Ant y CDBS</title>
+
+  <para>
+    Durante varios años, Java era una alternativa atractiva (sobretodo a nivel de empresa)
+    para desarrollo de aplicaciones, pero no había atraido de manera importante la
+    atención de los desarrolladores de aplicaciones de escritorio. Al momento de escribir
+    estas líneas, me parece que esto va a cambiar de forma significativa.
+  </para>
+
+  <para>
+    Java se está convirtiendo rápidamente en una plataforma Open Source. Sun Microsystems
+    ya ha liberado la mayor parte del código fuente de la máquina virtual y de las
+    bibliotecas de clases mediante el proyecto OpenJDK, de forma que está a la par con
+    otras alternativas que deberían ser más o menos equivalentes, como el proyecto Mono.
+  </para>
+
+  <para>
+    De hecho, si bien existen paquetes que permiten instalar Java en Ubuntu (
+    <filename>sun-java5</filename> y <filename>sun-java6</filename>), estos
+    requieren aprobar una licencia por separado en el momento de instalarse.
+    Hoy ya existe una implementación basada sólo en Software Libre (en el paquete
+    <filename>icedtea-java7</filename>).
+  </para>
+
+  <para>
+    Si bien existen diferentes alternativas de ambientes de desarrollo libres
+    para programar en Java (Eclipse y Netbeans, por ejemplo, cada una con sus
+    partidarios y detractores), algo que se ha establecido como un estándar de
+    facto es el uso de la herramienta Ant para la construcción de proyectos Java.
+  </para>
+
+  <para>
+    Ant partió como un reemplazo de GNU Make, porque al autor le parecía que la
+    sintaxis de los Makefiles era horrible y era muy fácil caer en errores 
+    difíciles de detectar, como reemplazar tabuladores por espacios en un Makefile.
+    En su lugar, Ant utiliza un archivo XML (<filename>build.xml</filename>) donde
+    se establecen diferentes objetivos (targets) para un proyecto: desde limpiar los
+    archivos de una compilación o respaldo anterior, hasta compilarlo, generar un
+    una biblioteca Jar y una enorme cantidad de tareas que se han agregado con el tiempo.
+  </para>
+
+  <para>
+    Finalmente Ant se ganó el corazón de los equipos que deseaban una forma de
+    construir sus proyectos Java de forma independiente de la herramienta de
+    desarrollo y plataforma, y así Ant llega a tener soporte incluso en Eclipse y Netbeans.
+  </para>
+
+  <para>
+    Empaquetar software ya desarrollado en Java y Ant es bastante sencillo como veremos.
+    En primer lugar, una aplicación Java como la mencionada suele tener su código fuente
+    contenido en una carpeta (<filename>source</filename> o <filename>src</filename>
+    o similar) y un archivo <filename>build.xml</filename> en la raíz del proyecto.
+   
+    Para construir el proyecto, debería bastar con tener instalado Ant y un kit de desarrollo
+    Java (JDK) y simplemente ejecutar en la línea de comandos:
+
+    <programlisting><![CDATA[$ ant ]]></programlisting>
+
+    Dependiendo de la naturaleza del proyecto pueden ejecutarse varios pasos aparte de la
+    simple compilación del código fuente: es posible que se ejecuten pruebas unitarias
+    creadas con JUnit o algún tipo de generación de código, JavaDocs o similares.
+  </para>
+
+  <para>
+   Para comenzar a Debianizar este proyecto Java, ejecutamos:
+   <programlisting><![CDATA[$ dh_make -c gpl -e usuario@miempresa.com -s --createorig ]]></programlisting>
+  </para>
+
+  <sect3>
+    <title>Archivo <filename>debian/control</filename> de un paquete creado con Java</title>
+
+    <para>
+      En el caso de que nuestro paquete de software dependa de una versión
+      específica de la plataforma Java (ej. si utiliza "Generics" se requiere
+      al menos de un entorno de Java 5) o de otras bibliotecas desarrolladas
+      con Java (ej. Jakarta Commons), se deberá especificar en el archivo
+      <filename>debian/control</filename> de forma precisa en las líneas
+      <command>Build-Depends</command> y <command>Depends</command>.
+      En el caso de los entornos de ejecución (JRE) existen paquetes virtuales
+      que permiten que espefiques una versión de Java sin necesidad de
+      limitarlo a una implementación en particular (ej. es mejor usar
+      <filename>java5-runtime</filename> en lugar de
+      <filename>sun-java5-jre</filename>).
+    </para>
+
+    <para>
+      Afortunadamente, ya hay muchas bibliotecas Java empaquetadas en Debian
+      y Ubuntu, todas tienen un nombre de paquete con la convención
+      <filename>libXXXX-java</filename>
+      (ej. <filename>libcommons-httpclient-java</filename>) y la política
+      para paquetes de software Java indica que todos los archivos 
+      de bibliotecas Jar quedarán instalados en
+      <filename>/usr/share/java/</filename>.
+    </para>
+
+  </sect3>
+
+  <sect3>
+    <title>Archivo <filename>debian/rules</filename> de un paquete creado con Java</title>
+
+    <para>
+      Esto es algo realmente afortunado. Los archivos <filename>debian/rules</filename> de este
+      tipo de paquetes pueden quedar realmente sencillos con ayuda de CDBS, como veremos en
+      el ejemplo, un paquete hecho de un software llamado <command>Privatewiki</command>
+      (es una aplicación que escribí hace tiempo, la idea es más o menos similar a Tomboy).
+    </para>
+
+    <para>
+      El archivo es el siguiente:
+
+      <programlisting><![CDATA[#!/usr/bin/make -f
+
+include /usr/share/cdbs/1/rules/debhelper.mk
+include /usr/share/cdbs/1/class/ant.mk
+
+# Estoy usando esta versión sólo para empaquetar!
+JAVA_HOME := /usr/lib/jvm/java-1.5.0-sun
+ANT_HOME := /usr/share/ant
+
+install/privatewiki:: DEB_FINALDIR=$(CURDIR)/debian/privatewiki
+install/privatewiki::
+
+  # Creo varios directorios
+  install -d $(DEB_FINALDIR)/usr/bin
+  install -d $(DEB_FINALDIR)/usr/share/privatewiki
+  install -d $(DEB_FINALDIR)/usr/share/java
+  install -d $(DEB_FINALDIR)/usr/share/pixmaps
+  install -d $(DEB_FINALDIR)/usr/share/applications
+
+  # Instalo un shell que sirve para lanzar mi programa
+  install -m 755 $(CURDIR)/debian/bin/privatewiki \
+    $(DEB_FINALDIR)/usr/bin/
+
+  # Un archivo con datos usados por mi programa, iconos, etc.
+  install -m 755 $(CURDIR)/bin/data.zip \
+    $(DEB_FINALDIR)/usr/share/privatewiki/data.zip
+  install -m 755 $(CURDIR)/resources/icons/private.png \
+    $(DEB_FINALDIR)/usr/share/pixmaps/privatewiki.png
+  install -m 755 $(CURDIR)/debian/bin/privatewiki.desktop \
+    $(DEB_FINALDIR)/usr/share/applications/privatewiki.desktop
+  install -m 644 $(CURDIR)/lib/privatewiki.jar \
+    $(DEB_FINALDIR)/usr/share/java/privatewiki.jar
+]]></programlisting>
+
+    Sí, eso es todo. El truco es la línea donde se incluye el archivo <filename>ant.mk</filename>
+    lo que da instrucciones para realizar ciertas tareas con Ant y el archivo 
+    <filename>build.xml</filename> que debería tener mi proyecto Java.
+    </para>
+
+    <para>
+      El archivo <filename>build.xml</filename> de la raíz de mi proyecto es el siguiente:
+
+      <programlisting><![CDATA[<?xml version="1.0"?>
+<project name="privatewiki" default="jar">
+
+   <property name="src" value="src"/>
+
+   <!-- limpiar proyecto -->
+   <target name="clean">
+       <delete failonerror="false">
+           <fileset dir="lib" includes="**.jar" />
+       </delete>
+       <delete dir="lib"  failonerror="false" />
+       <delete dir="classes"  failonerror="false" />
+   </target>
+
+   <!-- compilar clases Java -->
+   <target name="compile">
+     <mkdir dir="classes" />
+     <javac srcdir="src" destdir="classes" />
+   </target>
+
+   <!-- crear archivo Jar, requiere limpiar y compilar -->
+   <target name="jar" depends="clean,compile">
+     <mkdir dir="lib" />
+     <jar jarfile="lib/privatewiki.jar"
+        basedir="classes"
+        compress="true"
+        >
+         <fileset dir="classes" />
+         <fileset dir="resources" />
+
+         <!-- indico la clase que inicia la ejecucion -->
+         <manifest>
+             <attribute name='Main-Class' value='privatewiki.Main'/>
+         </manifest>
+      </jar>
+    </target>
+
+</project>]]></programlisting>
+
+      Lo importante es que construcción del proyecto con Ant realice todas las
+      tareas necesarias para tener una aplicación lista para ejecutar. El 
+      archivo <filename>debian/rules</filename> toma el resto de los artefactos
+      para producir el paquete y listo.
+    </para>
+
+    <para>
+     Finalmente, el documento de Java Policy en Debian indica que no se puede
+     depender de un valor determinado para la variable de ambiente CLASSPATH
+     (que se utiliza para indicar la ruta de búsqueda de bibliotecas Java para
+     un programa en ejecución). Para modificar el CLASSPATH para los requerimientos
+     de un programa, lo adecuado es crear un shell script que haga las modificaciones
+     necesarias para el entorno de nuestro programa y luego invoque el programa
+     en cuestion, por ejemplo:
+
+     <programlisting><![CDATA[#!/bin/sh
+
+  # CLASSPATH
+  export CLASSPATH=/usr/share/java/xxx1.jar:/usr/share/java/yyy2.jar
+
+  # Ejecuto mi programa
+  java org.miproyecto.MiApplicacion -Dflag1=valor -Dflag2=valor
+]]></programlisting>
+
+    En mi proyecto <command>privatewiki</command>, uso un script para
+    detectar un archivo de datos (con las notas que llena el usuario en
+    su wiki personal) y ejecuto el programa en un directorio determinado:
+
+     <programlisting><![CDATA[#!/bin/sh
+
+set -e
+
+# Test if ${HOME}/.privatewiki exists
+DATADIR="$HOME"/.privatewiki
+
+if [ -d $DATADIR ]; then
+    echo "data dir found"
+else
+    mkdir ${HOME}/.privatewiki
+fi
+
+# Test if ${HOME}/.privatewiki/data.zip exists
+DATAFILE="$HOME"/.privatewiki/data.zip
+
+if [ -e $DATAFILE ]; then
+        echo "datafile ok"
+else
+        echo "no datafile"
+	cp /usr/share/privatewiki/data.zip ${HOME}/.privatewiki/data.zip
+fi
+
+cd "$HOME"/.privatewiki
+java -jar /usr/share/java/privatewiki.jar
+]]></programlisting>
+
+    Para terminar, el código fuente completo y debianizado de <command>privatewiki</command>
+    está disponible en
+    <ulink>http://desarrollo-ubuntu.googlecode.com/svn/trunk/privatewiki-0.1/</ulink>
+
+    </para>
+
+  </sect3>
+
   </sect2>
-
-  <para>
-          Durante varios años, Java era una alternativa atractiva (sobretodo a nivel de empresa)
-          para desarrollo de aplicaciones, pero no había atraido de manera importante la
-          atención de los desarrolladores de aplicaciones de escritorio. Al momento de escribir
-          estas líneas, me parece que esto va a cambiar de forma significativa.
-  </para>
-
-  <para>
-          Java se está convirtiendo rápidamente en una plataforma Open Source. Sun Microsystems
-          ya ha liberado la mayor parte del código fuente de la máquina virtual y de las
-          bibliotecas de clases mediante el proyecto OpenJDK, de forma que está a la par con
-          otras alternativas que deberían ser más o menos equivalentes, como el proyecto Mono.
-  </para>
-
-  <para>
-          De hecho, si bien existen paquetes que permiten instalar Java en Ubuntu (
-          <filename>sun-java5</filename> y <filename>sun-java6</filename>), estos
-          requieren aprobar una licencia por separado en el momento de instalarse.
-          Hoy ya existe una implementación basada sólo en Software Libre (en el paquete
-          <filename>icedtea-java7</filename>).
-  </para>
-
 
   </sect1>
 
