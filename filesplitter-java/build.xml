@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+
+<project name="filesplitter" default="jar">
+
+   <property name="main.class" value="FileSplitter"/>
+   <property name="jar.file" value="filesplitter.jar"/>
+
+   <target name="clean">
+       <delete failonerror="false">
+           <fileset dir="lib" includes="**.jar" />
+       </delete>
+       <delete dir="lib" failonerror="false" />
+       <delete dir="classes" failonerror="false" />
+       <delete failonerror="false">
+           <fileset dir="tests" includes="**/*.class" />
+       </delete>
+       
+   </target>
+
+   <target name="compile">
+     <mkdir dir="classes" />
+     <mkdir dir="classes/resources" />
+     <javac srcdir="src" destdir="classes" />
+     <javac srcdir="tests" destdir="tests"><src path="src" /></javac>
+     <copy todir="classes/resources">
+         <fileset dir="resources" includes="**/*.*" />
+     </copy>
+   </target>
+   
+   <!--
+   Be sure to include {ant.jar, junit.jar, ant-junit.jar} in the classpath to run this task 
+    -->
+   <target name="test">
+   	<junit printsummary="on" haltonfailure="yes">
+   	
+   	 <classpath>
+	    <pathelement location="tests"/>
+	    <pathelement path="${java.class.path}"/>
+	   </classpath>
+   	
+	  <batchtest fork="no">
+	    <fileset dir="tests">
+	       <include name="**/*Test*.java" />
+	       <exclude name="**/AllTests.java" />
+	    </fileset>
+	  </batchtest>
+	</junit> 
+
+   </target>
+
+   <target name="jar" depends="clean,compile,test">
+     <mkdir dir="lib" />
+     <jar jarfile="lib/${jar.file}"
+        basedir="classes"
+        compress="true"
+        >
+         <fileset dir="classes" />
+         <fileset dir="resources" />
+         <manifest>
+             <attribute name='Main-Class' value="${main.class}"/>
+         </manifest>
+      </jar>
+    </target>
+
+</project>
+
