@@ -7,7 +7,6 @@ public class MD5Test extends TestCase {
 	
 	MD5 md = null;
 	
-	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		
