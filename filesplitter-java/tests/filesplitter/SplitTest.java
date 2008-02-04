@@ -109,4 +109,58 @@ public class SplitTest extends TestCase {
 		assertEquals("Hash no coincide entre archivo completo y trozos", wholeFileHash, piecesHash);
 	}
 	
+	
+	/**
+	 * Split a file and join the pieces using the Split class
+	 * @throws Exception
+	 */
+	
+	public void testJoin() throws Exception {
+		
+		Split split = new Split();
+		
+		/*
+		 * Creo el directorio "pieces" en la carpeta temporal
+		 */
+		String parentDir = fileToSplit.getParent();
+		File carpetaDestino = new File(parentDir + File.separator + "pieces");
+		
+		if (!carpetaDestino.exists()){
+			if (!carpetaDestino.mkdirs()){ fail("No pude crear directorio"); }			
+		}
+		
+		/*
+		 * Invoco el split sobre el archivo temporal
+		 */
+		split.splitFile(fileToSplit, carpetaDestino, 40000);
+		
+		/*
+		 * Calculo el hash sobre el archivo temporal 
+		 */
+		
+		FileReader wholeFileReader = new FileReader(fileToSplit);
+		MD5 md5WholeFile = MD5.getInstance();
+		
+		char[] buffer = new char[1];
+		while (wholeFileReader.read(buffer) > -1){
+			md5WholeFile.addBytes(new byte[]{(byte) buffer[0]});
+		}
+		
+		String wholeFileHash = md5WholeFile.hashData();
+		
+		/*
+		 * junto todos los trozos y calculo el hash 
+		 */
+		
+		String firstPieceName = carpetaDestino.getAbsolutePath() + File.separator + fileToSplit.getName() + ".0";
+		File firstPieceFile = new File(firstPieceName);
+		String joinHash = split.join(firstPieceFile, carpetaDestino, true);
+	
+		/*
+		 * Assertion
+		 */
+		
+		assertEquals("Hash no coincide entre archivo completo y trozos", wholeFileHash, joinHash);
+	}
+	
 }
