@@ -13,6 +13,20 @@ public class MD5Test extends TestCase {
 		md = MD5.getInstance();
 	}
 	
+	public void testAppendBytes() throws Exception {
+		
+		md = MD5.getInstance();
+		md.addBytes("hello".getBytes());
+		md.addBytes("world".getBytes());
+		String hash1 = md.hashData();
+
+		md = MD5.getInstance();
+		md.addBytes("helloworld".getBytes());
+		String hash2 = md.hashData();
+		
+		assertEquals(hash1, hash2);
+
+	}
 
 	public void testMd5Hello() throws Exception {
 		

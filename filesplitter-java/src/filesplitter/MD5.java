@@ -11,8 +11,7 @@ public class MD5 {
 
 	private MessageDigest md = null;
 	static private MD5 md5 = null;
-	private static final char[] hexChars = { 
-			'0', '1', '2', '3', '4', '5', '6',
+	private static final char[] hexChars = { '0', '1', '2', '3', '4', '5', '6',
 			'7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 
 	/**
@@ -29,30 +28,30 @@ public class MD5 {
 
 		if (md5 == null) {
 			md5 = new MD5();
-
 		}
 
 		return (md5);
 	}
 
-	public String hashData(byte[] dataToHash)
-
-	{
-
+	public String hashData(byte[] dataToHash) {
 		return hexStringFromBytes((calculateHash(dataToHash)));
 	}
+	
+	public String hashData() {
+		return hexStringFromBytes(md.digest());
+	}
 
-	private byte[] calculateHash(byte[] dataToHash)
-
-	{
+	public void addBytes(byte[] data){
+		md.update(data, 0, data.length);
+	}
+	
+	
+	private byte[] calculateHash(byte[] dataToHash) {
 		md.update(dataToHash, 0, dataToHash.length);
-
 		return (md.digest());
 	}
 
-	public String hexStringFromBytes(byte[] b)
-
-	{
+	public String hexStringFromBytes(byte[] b) {
 
 		// String hex = "";
 		StringBuffer sb = new StringBuffer();
@@ -71,8 +70,8 @@ public class MD5 {
 			sb.append(hexChars[lsb]);
 			// hex = hex + hexChars[msb] + hexChars[lsb];
 		}
-		
-		//return (hex);
+
+		// return (hex);
 		return (sb.toString());
 	}
 
