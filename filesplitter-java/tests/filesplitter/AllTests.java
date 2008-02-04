@@ -8,6 +8,7 @@ public class AllTests extends TestSuite {
 
 		TestSuite s = new TestSuite();
 		s.addTestSuite(MD5Test.class);
+		s.addTestSuite(SplitTest.class);
 		
 		return s;
 	}
