@@ -1,3 +1,5 @@
+import java.text.MessageFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class FileSplitter {
@@ -9,8 +11,12 @@ public class FileSplitter {
 		
 		ResourceBundle resourceBundle = ResourceBundle.getBundle("FileSplitter");
 		
-		String greeting = resourceBundle.getString("hello.world");
+		String message  = resourceBundle.getString("hello.world");
+		
+		Object[] params = new Object[]{ new Date(), ""};
+		String greeting = MessageFormat.format(message, params);
 		
 		System.out.println(greeting);
+		
 	}
 }
