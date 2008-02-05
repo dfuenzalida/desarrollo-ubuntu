@@ -12,12 +12,12 @@ public class Split {
 
 	
 	/**
-	 * Divide un archivo 'origen' en trozos de tamaño 'tamano' y los coloca
+	 * Divide un archivo 'origen' en trozos de tamaÃ±o 'tamano' y los coloca
 	 * en la carpeta 'carpetaDestino'
 	 *  
 	 * @param sourceFile Archivo a dividir
 	 * @param destFolder Carpeta de destino de los trozos
-	 * @param size Tamaño máximo de cada trozo en bytes
+	 * @param size TamaÃ±o mÃ¡ximo de cada trozo en bytes
 	 */
 	public void splitFile(File origen, File carpetaDestino, long tamano, boolean validateChecksum) throws Exception {
 		
@@ -62,7 +62,7 @@ public class Split {
 	}
 
 	/**
-	 * Asumo que el primer archivo tiene extensión ".0"
+	 * Asumo que el primer archivo tiene extensiÃ³n ".0"
 	 * 
 	 * @param firstPieceFile
 	 * @param destinationFolder
