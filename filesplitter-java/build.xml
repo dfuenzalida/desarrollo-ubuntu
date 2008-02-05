@@ -30,7 +30,7 @@
    <!--
    Be sure to include {ant.jar, junit.jar, ant-junit.jar} in the classpath to run this task 
     -->
-   <target name="test">
+   <target name="test" depends="clean,compile">
    	<junit printsummary="on" haltonfailure="yes">
    	
    	 <classpath>
