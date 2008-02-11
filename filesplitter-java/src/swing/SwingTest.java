@@ -8,6 +8,14 @@ import javax.swing.*;
 public class SwingTest {
     public static void main(String[] args) {
 
+        // Get the native look and feel class name
+        String nativeLF = UIManager.getSystemLookAndFeelClassName();
+        
+        // Install the look and feel
+        try {
+            UIManager.setLookAndFeel(nativeLF);
+        } catch (Exception e){ e.printStackTrace(); }
+
         ResourceBundle resourceBundle = ResourceBundle.getBundle("FileSplitter");
         String message  = resourceBundle.getString("hello.world");
         Object[] params = new Object[]{ new Date(), ""};
