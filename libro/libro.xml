@@ -7,6 +7,7 @@
   <!ENTITY capitulo-introduccion SYSTEM "capitulo-introduccion.xml">
   <!ENTITY capitulo-python-glade SYSTEM "capitulo-python-glade.xml">
   <!ENTITY capitulo-empaquetar SYSTEM "capitulo-empaquetar.xml">
+  <!ENTITY capitulo-launchpad SYSTEM "capitulo-launchpad.xml">
 ]>
 
 <book lang="es">
@@ -50,6 +51,9 @@
 
   <!-- Capitulo 3: Empaquetar SW -->
   &capitulo-empaquetar;
+
+  <!-- Capitulo 4: Ubuntu Launchpad y PPA -->
+  &capitulo-launchpad;
 
   <!--
   <chapter>
