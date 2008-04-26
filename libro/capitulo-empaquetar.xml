@@ -586,8 +586,8 @@ E: gtkfilesplitter: debian-changelog-file-contains-invalid-address denis@laptop
     De hecho, si bien existen paquetes que permiten instalar Java en Ubuntu (
     <filename>sun-java5</filename> y <filename>sun-java6</filename>), estos
     requieren aprobar una licencia por separado en el momento de instalarse.
-    Hoy ya existe una implementación basada sólo en Software Libre (en el paquete
-    <filename>icedtea-java7</filename>).
+    Hoy ya existe una implementación basada sólo en Software Libre (en los paquetes
+    <filename>openjdk-6-jdk</filename>, <filename>openjdk-6-jre</filename>, etc).
   </para>
 
   <para>
