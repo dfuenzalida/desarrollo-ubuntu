@@ -2,7 +2,7 @@ AC_INIT(src/calcu.c)
 AM_INIT_AUTOMAKE(calcu, 0.1)
 AC_PROG_CC
 
-AC_CHECK_LIB(Xm, XmCreateForm,, AC_MSG_ERROR([Xm not found. Install libmotif3 and libmotif-dev]))
+AC_CHECK_LIB(Xm, XmCreateForm,, AC_MSG_ERROR([Xm not found. Install libmotif3, libmotif-dev and libxt-dev]))
 
 AC_PROG_INSTALL
 AC_OUTPUT(Makefile)
