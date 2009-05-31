@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=ContactsSharp contacts manager
+Name[es]=Administrador de contactos ContactsSharp
+Comment=A simple contacts management app written in C#
+Comment[es]=Una aplicación simple de manejo de contactos, escrita en C#
+GenericName=ContactsSharp
+GenericName[es]=Manejo de contactos ContactsSharp
+Exec=contacts-sharp
+Terminal=false
+Type=Application
+StartupNotify=true
+Icon=/usr/share/icons/gnome/48x48/stock/net/stock_contact.png
+Categories=GNOME;GTK;Utility;

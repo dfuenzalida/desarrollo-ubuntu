@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ItemType>TranslationProject</ItemType>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F4A92213-104E-42B5-8F4D-5A91762055F6}</ProjectGuid>
+    <translations>
+      <translations>
+        <Translation isoCode="es" />
+        <Translation isoCode="en" />
+      </translations>
+    </translations>
+    <outputType>RelativeToOutput</outputType>
+    <packageName>contactssharp</packageName>
+    <relPath>locale</relPath>
+  </PropertyGroup>
+</Project>

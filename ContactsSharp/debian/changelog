@@ -1,0 +1,11 @@
+contactssharp (0.2-1ubuntu1) karmic; urgency=low
+
+  * Packaging for Ubuntu
+
+ -- Denis Fuenzalida <denis.fuenzalida@gmail.com>  Fri, 29 May 2009 16:05:42 -0400
+
+contactssharp (0.2-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Denis Fuenzalida <denis.fuenzalida@gmail.com>  Fri, 29 May 2009 14:42:25 -0400

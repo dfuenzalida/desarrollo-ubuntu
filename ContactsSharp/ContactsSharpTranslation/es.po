@@ -1,0 +1,191 @@
+msgid ""
+msgstr ""
+"X-Generator: MonoDevelop Gettext addin\n"
+"Language-Team: \n"
+"PO-Revision-Date: 2009-05-23 16:35:34-0400\n"
+"POT-Creation-Date: 2009-05-23 16:34:46-0400\n"
+"Project-Id-Version: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: denis\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#: ../ContactsSharp/MainWindow.cs:51
+msgid "Showing contact {0} of {1}"
+msgstr "Mostrando contacto {0} de {1}"
+
+#: ../ContactsSharp/MainWindow.cs:57
+msgid "No contacts"
+msgstr "Sin contactos"
+
+#: ../ContactsSharp/MainWindow.cs:95
+msgid "Modified"
+msgstr "Modificado"
+
+#: ../ContactsSharp/MainWindow.cs:109
+msgid "Exit with unsaved changes?"
+msgstr "¿Salir sin guardar cambios?"
+
+#: ../ContactsSharp/MainWindow.cs:130
+msgid "Updated"
+msgstr "Actualizado"
+
+#: ../ContactsSharp/MainWindow.cs:141
+msgid "Saved"
+msgstr "Guardado"
+
+#: ../ContactsSharp/MainWindow.cs:293
+msgid "Are you sure?"
+msgstr "¿Estás seguro?"
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:84
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:85
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:87
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:88
+msgid "_File"
+msgstr "_Archivo"
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:90
+msgid "_New"
+msgstr "_Nuevo"
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:92
+msgid "_Nuevo"
+msgstr ""
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:94
+msgid "_Save"
+msgstr "_Guardar"
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:95
+msgid "_Guardar"
+msgstr ""
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:97
+msgid "_Exit"
+msgstr "_Salir"
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:98
+msgid "_Salir"
+msgstr ""
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:100
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:101
+msgid "_Edit"
+msgstr "_Editar"
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:103
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:104
+msgid "_Go"
+msgstr "_Ir"
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:106
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:107
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:113
+msgid "A_delante"
+msgstr ""
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:109
+msgid "_Previous"
+msgstr ""
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:110
+msgid "A_trás"
+msgstr ""
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:112
+msgid "N_ext"
+msgstr ""
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:115
+msgid "C_ut"
+msgstr "Cor_tar"
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:116
+msgid "Cor_tar"
+msgstr ""
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:118
+msgid "_Copy"
+msgstr "_Copiar"
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:119
+msgid "_Copiar"
+msgstr ""
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:121
+msgid "_Paste"
+msgstr "_Pegar"
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:123
+msgid "_Pegar"
+msgstr ""
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:125
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:126
+msgid "Help"
+msgstr "Ay_uda"
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:128
+msgid "_About"
+msgstr "Acerca _de"
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:129
+msgid "Acerca _de"
+msgstr ""
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:131
+msgid "_Delete"
+msgstr "_Borrar"
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:132
+msgid "_Borrar"
+msgstr ""
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:134
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:135
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:137
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:138
+msgid "_Help"
+msgstr "Ay_uda"
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:143
+msgid "Contacts Sharp"
+msgstr ""
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:192
+msgid "Description"
+msgstr "Descripción"
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:216
+msgid "EMail"
+msgstr "Correo Electrónico"
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.MainWindow.cs:238
+msgid "Name"
+msgstr "Nombre"
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.AboutDialog.cs:29
+msgid "About ContactsSharp"
+msgstr "Acerca de ContactsSharp"
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.AboutDialog.cs:48
+msgid ""
+"ContactsSharp is a simple demo app to show capabilities of MonoDevelop, "
+"Stetic, GTK# and Mono."
+msgstr ""
+"ContactsSharp es una aplicación de prueba para mostrar las capacidades de "
+"MonoDevelop, Stetic, GTK# y Mono."
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.AboutDialog.cs:62
+msgid "<b>About ContactsSharp</b>"
+msgstr "<b>Acerca de ContactsSharp</b>"
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.AboutDialog.cs:75
+msgid "(c) 2009 Denis Fuenzalida"
+msgstr ""
+
+#: ../ContactsSharp/gtk-gui/ContactsSharp.ConfirmDialog.cs:29
+msgid "Question"
+msgstr "Pregunta"
+

@@ -1,0 +1,16 @@
+Source: contactssharp
+Section: unknown
+Priority: extra
+Maintainer: Denis Fuenzalida <denis.fuenzalida@gmail.com>
+Build-Depends: debhelper (>= 7), autotools-dev, libmono-sqlite2.0-cil, libgnome2.24-cil, libgtk2.0-cil, mono-runtime, mono-gmcs, mono-devel, libmono-posix2.0-cil
+Standards-Version: 3.8.0
+Homepage: http://eccp.blogspot.com
+
+Package: contactssharp
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libmono-sqlite2.0-cil, libgnome2.24-cil, libgtk2.0-cil, mono-runtime, libmono-posix2.0-cil
+Description: A simple contacts management app written in C#
+ ContactsSharp is a simple demo app to show capabilities
+ of MonoDevelop, Stetic, GTK# and Mono.
+ .
+ See http://eccp.blogspot.com for details

@@ -1,0 +1,13 @@
+namespace ContactsSharp
+{
+
+	// copiado de gnome-hipo: actualizado 28/05/09 23:56:18 28/05/09 23:56:19 
+	public sealed class Defines
+	{
+		public const string PACKAGE  	     = "@PACKAGE@";
+		public const string VERSION          = "@VERSION@";
+	    	public const string LOCALE_DIR       = "@prefix@/lib/@PACKAGE@/locale";
+		//public const string GETTEXT_PACKAGE  = "@GETTEXT_PACKAGE@";
+        public const string GNOME_HELP_DIR   = "@prefix@/share/gnome/help/@PACKAGE@";
+	}
+}
