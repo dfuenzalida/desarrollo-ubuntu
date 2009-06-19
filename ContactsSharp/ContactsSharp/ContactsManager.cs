@@ -72,7 +72,9 @@ namespace ContactsSharp
 				dbcmd = dbcon.CreateCommand();
 				dbcmd.CommandText = "" +
 					" create table CONTACTS " +
-					" (id INT AUTOINCREMENT PRIMARY KEY, name TEXT, email TEXT, description TEXT)";
+					// DF 20090619
+					// Cambiado "id INT AUTOINCREMENT PRIMARY KEY" por "id INT PRIMARY KEY"
+					" (id INT PRIMARY KEY, name TEXT, email TEXT, description TEXT)";
 				dbcmd.ExecuteNonQuery();
 				dbcmd.Dispose();
 				dbcmd = null;

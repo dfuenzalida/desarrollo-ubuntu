@@ -147,7 +147,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-EXTRA_DIST = messages.po Makefile.am $(build_sources) \
+EXTRA_DIST = messages.po Makefile.am Makefile.in $(build_sources) \
 	$(build_resx_files) $(build_others_files) \
 	$(ASSEMBLY_WRAPPER_IN) $(EXTRAS) $(DATA_FILES) \
 	$(build_culture_res_files)
@@ -384,8 +384,6 @@ clean: clean-am
 
 clean-am: clean-generic mostlyclean-am
 
-distclean: distclean-am
-	-rm -f Makefile
 distclean-am: clean-am distclean-generic
 
 dvi: dvi-am
@@ -490,6 +488,9 @@ uninstall-satellite-assemblies:
 all: $(GMO_FILES)
 
 install: $(MO_FILES)
+
+distclean:
+	rm -f *.gmo *.mo
 
 uninstall:
 	for lang in $(basename $(FILES)); do \
