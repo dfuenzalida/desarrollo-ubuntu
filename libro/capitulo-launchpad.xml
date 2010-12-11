@@ -4,9 +4,143 @@
 <chapter>
   <title>Introducción al desarrollo con Launchpad</title>
 
+  <sect1>
+  <title>Introducción</title>
+
   <para>
-  (pendiente)
+  A partir del año 2004, Canonical inició el servicio Launchpad, que permite alojar proyectos de software libre, así como los servicios de traducción, reporte y seguimiento de errores y más recientemente el servicio de PPA (Personal Package Archive), que permite crear tus propios repositorios alojados en los servidores de Launchpad. Hay que notar que los requisitos para poder usar el servicio PPA son: haberse registrado en Launchpad.net y haber firmado el código de conducta de Ubuntu.
   </para>
+
+  <para>
+  Este capítulo resume de forma muy breve la forma de alojar tu proyecto en un PPA. Para más detalles sobre las características de este servicio, vea <ulink url="https://help.launchpad.net/Packaging/PPA">Packaging/PPA Help</ulink> en Launchpad.net
+  </para>
+  </sect1>
+
+  <sect1>
+  <title>Creación y publicación de una llave GPG</title>
+
+  <para>
+  Primero, se requiere crear una llave GPG para realizar la firma digital de los paquetes que serán alojados en el repositorio. Esta llave GPG permitirá que los usuarios de los programas que pongas en tu PPA puedan validar el origen de los mismos.
+  </para>
+
+  <para>
+  Para crear la nueva llave GPG, primero debes ir a Sistema &gt; Preferencias &gt; Contraseñas y claves de cifrado. Esto inicia el programa <filename>seahorse</filename>. En la pantalla principal, abre el menú Archivo &gt; Nueva &gt; Clave PGP. Deberás ingresar tu nombre y dirección de email, y luego presionar el botón "Generar Clave".
+  </para>
+
+  <para>
+  Luego de unos segundos, la clave generada queda en la lengueta "Mis claves personales". Esta llave debe ser publicada en un servidor de claves que es parte de la infraestructura de Ubuntu.
+  </para>
+
+  <para>
+  Para publicar, usa el menú Editar &gt; Preferencias &gt; Servidores de Claves. En la opción "Publicar claves en...", selecciona la opción <filename>hkp://keyserver.ubuntu.com:11371</filename> y presiona el botón "Cerrar". Luego selecciona el menú: Remota &gt; Sincronizar y publicar claves &gt; Sincronizar. En unos segundos tu llave será publicada en el servidor de claves de Ubuntu.
+  </para>
+
+  </sect1>
+
+  <sect1>
+  <title>Agregar la huella (fingerprint) de la clave GPG a Launchpad</title>
+
+  <para>
+  Ahora, debes buscar la firma en la lengueta "Mis claves personales", hacer click-derecho y seleccionar "Propiedades". En la lengueta "Detalles", hacer doble-click en "Huella" para seleccionarla y Control-C para copiarla al portapapeles.
+  </para>
+
+  <para>
+  El contenido de la huella de una clave GPG es similar a este texto en hexadecimal:
+  <programlisting><![CDATA[3DFD 4495 8A17 5E4E 97A6
+B9B1 6F3E C068 ADF0 F1AD
+]]></programlisting>
+  </para>
+
+  <para>
+  Ingresa a tu cuenta de usuario en Launchpad. En la página de inicio, haz click en "Change your OpenPGP keys" (<ulink url="https://launchpad.net/+me/+editpgpkeys">https://launchpad.net/+me/+editpgpkeys</ulink>). Luego, pega la huella (fingerprint) de la llave PGP en el formulario "Import an OpenPGP key" y presionar el botón "Import key".
+  </para>
+
+  <para>
+  En momentos, Launchpad te enviará un correo firmado con tu llave pública de PGP con instrucciones que debes seguir. Copia el contenido del correo en un nuevo documento de texto, incluyendo el texto con el encabezado PGP, que tiene la siguiente apariencia:
+
+<programlisting><![CDATA[-----BEGIN PGP MESSAGE-----
+Version: GnuPG v1.4.10 (GNU/Linux)
+... (mensaje aqui) ...
+-----END PGP MESSAGE-----
+]]></programlisting>
+  </para>
+
+  <para>
+  Guarda el mensaje en un archivo de texto plano (ejemplo, <filename>instrucciones.txt</filename>) y abre una consola para descrifrar el archivo. En la consola, ejecuta <filename>gpg -d &lt;archivo&gt;</filename>. Para descrifrar el archivo, GPG te pedirá la clave ingresada durante la creación de la llave PGP.
+  </para>
+
+  <para>
+  El texto descrifrado contendrá un link en la forma <filename>https://launchpad.net/token/xxxxyyyyzzz</filename>. Al abrir este link en tu navegador, Launchpad ha comprobado que haz sido capaz de leer un mensaje cifrado con un llave pública, por lo que eres el poseedor legítimo de la llave privada y estás listo para firmar tus paquetes de software.
+  </para>
+  </sect1>
+
+  <sect1>
+  <title>Subir tus paquetes de software a Launchpad</title>
+
+  <para>
+  En primer lugar, debes instalar el paquete <filename>dput</filename> que es un pequeño utilitario que permite subir paquetes de código fuente, por lo que debes ejecutar <filename>sudo apt-get install dput</filename>
+  </para>
+
+  <para>
+  Luego, hay que copiar el nombre de la llave de GPG con la que firmas tus paquetes:
+<programlisting><![CDATA[$ gpg --list-keys
+/home/denis/.gnupg/pubring.gpg
+------------------------------
+pub   1024D/C0267E39 2008-03-26 [[caduca: 2012-03-26]]
+uid                  Denis Fuenzalida <denis.fuenzalida@gmail.com>
+sub   2048g/1B2D8A3D 2008-03-26 [[caduca: 2012-03-26]]
+]]></programlisting>
+
+  Acá notamos que el código <filename>C0267E39</filename> es un identificador para nuestra llave. Tomamos nota de él para realizar la forma de paquetes a continuación.
+  </para>
+
+  <para>
+  Antes de subir el paquete de código fuente, debemos crear el archivo de configuración <filename>~/.dput.cf</filename> para el utilitario <filename>dput</filename>. Usa como plantilla el siguiente texto:
+
+<programlisting><![CDATA[[my-ppa]
+fqdn = ppa.launchpad.net
+method = ftp
+incoming = ~nombre-usuario/ubuntu/
+login = anonymous
+allow_unsigned_uploads = 0
+]]></programlisting>
+  </para>
+
+  <para>
+  En el ejemplo anterior, <filename>my-ppa</filename> es un alias para identificar el repositorio donde vamos a subir los archivos. Recuerda reemplazar "nombre-usuario" por tu nombre de usuario de Launchpad en la línea que dice "incoming".
+  </para>
+
+  <para>
+  En una shell, cambia al directorio que contiene el código fuente del paquete que quieres subir a Launchpad, y construye el paquete con <filename>debuild</filename>, de esta manera:
+<programlisting><![CDATA[debuild -S -sa -kC0267E39
+]]></programlisting>
+
+  En el parametro <filename>-kC0267E39</filename>, reemplaza la parte después del <filename>-k</filename> por el identificador de tu propia llave GPG.
+  </para>
+
+  <para>
+  El proceso de construcción del paquete demora según el tamaño y complejidad del paquete, y te pedirá (2 veces) que ingreses la frase clave con que creaste la llave GPG. Luego de la construcción del paquete, retrocede al directorio padre y ve los archivos generados:
+<programlisting><![CDATA[$ cd ..
+$ ls 
+paintapp_0.1-1ubuntu2.dsc           paintapp_0.1-1ubuntu2_source.changes  
+paintapp_0.1-1ubuntu2.tar.gz        paintapp_0.1-1ubuntu2_source.build
+paintapp_0.1-1ubuntu2_source.upload
+]]></programlisting>
+
+  </para>
+
+  <para>
+  Ahora, ya puedes subir tu paquete de código fuente a Launchpad! ... debes iniciar <filename>dput</filename> e indicarle como parámetros el alias del repositorio y el archivo <filename>.changes</filename> que corresponda al paquete de código fuente que has generado. Por ejemplo:
+
+<programlisting><![CDATA[$ $ dput my-ppa paintapp_0.1-1ubuntu1_source.changes
+]]></programlisting>
+  </para>
+
+  <para>
+  En unos minutos, recibirás un correo indicándote que tu paquete ha sido admitido (o no) para ser construido, empaquetado y alojado en tu PPA de Launchpad.
+  </para>
+
+  </sect1>
 
 </chapter>
 
