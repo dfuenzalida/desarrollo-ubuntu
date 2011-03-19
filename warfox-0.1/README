@@ -1,0 +1,30 @@
+Este tarball contiene el código de Warfox, adaptado para que compile con
+autotools, mediante el típico proceso:
+
+$ ./configure
+$ make
+
+El código ha sido reestructurado para seguir las convenciones del lenguaje C,
+con los prototipos de las funciones y estructuras en archivos ".h" y la
+implementación en varios archivos ".c" (monstruos.c, warfox.c, etc.)
+
+En Ubuntu 10.10 se require instalar algunos paquetes extra para compilar:
+
+$ sudo aptitude install freeglut3-dev libglu1-mesa-dev
+
+Si se quiere crear un paquete Debian con las instrucciones de está página:
+< http://code.google.com/p/desarrollo-ubuntu/wiki/Autotools2deb > entonces
+se requiere editar el archivo debian/control/format y colocar el siguiente
+contenido:
+
+3.0 (native)
+
+Por omisión, las herramientas para crear paquetes Debian ahora usan el formato
+3.0 (quilt), pero este paquete y el procedimiento descrito en la página 
+wiki Autotools2deb es para paquetes de código fuente (nativos).
+
+Más detalles en:
+http://wiki.debian.org/Projects/DebSrc3.0#Howtoconvertasourcepackage.3F
+
+-- Denis Fuenzalida <denis.fuenzalida@gmail.com>, 19 de Marzo de 2011
+

@@ -1,0 +1,10 @@
+AC_INIT(src/warfox.c)
+AM_INIT_AUTOMAKE(warfox, 0.1)
+AC_PROG_CC
+
+AC_CHECK_LIB(glut, glutDisplayFunc,, AC_MSG_ERROR([libglut not found. Install freeglut3-dev]))
+AC_CHECK_LIB(GLU, gluLookAt,, AC_MSG_ERROR([libGLU not found. Install libglu1-mesa-dev]))
+
+AC_PROG_INSTALL
+AC_OUTPUT(Makefile)
+

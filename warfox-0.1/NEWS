@@ -1,0 +1,79 @@
+eccp inc. 2003 presenta:
+__        ___    ____  _____ _____  __
+\ \      / / \  |  _ \|  ___/ _ \ \/ /
+ \ \ /\ / / _ \ | |_) | |_ | | | \  /
+  \ V  V / ___ \|  _ <|  _|| |_| /  \
+   \_/\_/_/   \_\_| \_\_|   \___/_/\_\
+     Creado por FdT, eccp y Mig29
+
+
+Warfox es un juego creado en Agosto de 1998 (!!!)
+por FdT (alias Felipe de Toro), eccp (alias Denis Fuenzalida)
+y Mig29 (alias Miguel Barrera) para el curso de
+computación gráfica CC52B en la Escuela de Ingeniería de
+la Universidad de Chile.
+
+El juego fue programado en su mayor parte por FdT, y
+el ensamble final fue hecho en su viejo Pentium 1 durante
+UNA noche de Agosto de 1998 en su casa, junto a algo
+de codigo y mucha locura proporcionada por eccp y Mig29.
+El juego está hecho sobre OpenGL (o Mesa3D, donde corresponda).
+
+El código estuvo medio-perdido durante varios años, y
+con varios problemas para compilar en plataformas win32
+(fue desarrollado en Linux y probado tambien en Solaris), 
+pero finalmente cedió con unos retoques de eccp
+(basicamente reemplazo de llamadas GLAux con GLUT).
+
+La versión para Win32 fue compilada usando Cygwin el
+11 de Mayo de 2003. Los códigos fuentes y makefile usados
+están en la carpeta "src".
+
+*** Sobre el juego ***
+
+El juego consiste en comandar la nave "Warfox" para cumplir
+3 misiones:
+
+ * La destrucción de un robot con tentáculos en el interior
+   de una fortaleza.
+
+ * Pasar a través de un agujero de gusano que comunica la
+   fortaleza con el complejo del ultimo jefe
+
+ * Destruir al jefe de las fuerzas invasoras, el temible
+   M.A.R.I.O.
+
+*** Modus Operandi ***
+
+Ejecute el programa warfox.exe
+
+El programa se abre en una ventana de 600 x 600 pixels.
+
+Si su computador es más rápido que el de los desarrolladores
+(esto es cierto en el 95% de los casos), probablemente lo primero
+que vea es como la nave se estrella en la muralla de la fortaleza
+del nivel 1. 
+
+Puede presionar la letra "P" apenas aparezca la ventana, 
+con lo que la nave se pone a girar a la derecha. Esto da tiempo para
+maximizar la ventana y disminuir la velocidad del juego un poco.
+
+Si aún así va muy rápido, consuma recursos de su máquina: abra WinAmp
+para amenizar, o corra aplicaciones Java en otras ventanas :-)
+
+*** Controles ***
+
+O        : Izquierda
+P        : Derecha
+Q        : Bajar
+A        : Subir
+[Espacio]: Disparo
+[Escape] : Salir del juego
+
+Para otras teclas mágicas, ver el codigo fuente bajo su propia responsabilidad.
+
+---
+
+Denis Fuenzalida T < dfuenzal@dcc.uchile.cl >
+10:51 AM 12/05/2003
+
