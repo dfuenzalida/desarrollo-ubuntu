@@ -2,7 +2,7 @@ AC_INIT(src/calculadora.c)
 AM_INIT_AUTOMAKE(calculadora, 1.0)
 AC_PROG_CC
 
-AC_CHECK_LIB(Xm, XmCreateForm,, AC_MSG_ERROR([Xm not found. Install libmotif4, libmotif-dev and libxt-dev]))
+AC_CHECK_LIB(Xm, XmCreateForm,, AC_MSG_ERROR([Xm not found. Install libmotif4 libmotif-dev libxt-dev]))
 
 AC_PROG_INSTALL
 AC_OUTPUT(Makefile)
