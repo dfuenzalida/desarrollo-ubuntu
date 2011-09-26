@@ -1,3 +1,3 @@
-bin_PROGRAMS = calcu
-calcu_SOURCES = src/calcu.c
+bin_PROGRAMS = calculadora
+calculadora_SOURCES = src/calcu.c
 

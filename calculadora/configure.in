@@ -1,4 +1,4 @@
-AC_INIT(src/calcu.c)
+AC_INIT(src/calculadora.c)
 AM_INIT_AUTOMAKE(calculadora, 1.0)
 AC_PROG_CC
 
