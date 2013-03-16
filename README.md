@@ -40,7 +40,7 @@ Generación de la documentación en formato PDF
 $ sudo apt-get install xsltproc docbook-xsl make git-core
 ```
 
-Además de los paquetes anteriores, se requiere Java y [http://xmlgraphics.apache.org/fop/ Apache FOP].
+Además de los paquetes anteriores, se requiere Java y [Apache FOP](http://xmlgraphics.apache.org/fop/).
 
 2.- Si no tienes instalado Java, basta con:
 
