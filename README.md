@@ -10,7 +10,7 @@ Estas tareas adicionales al desarrollo permitirán que los usuarios de una aplic
 Cómo generar la documentación en formato HTML
 ---------------------------------------------
 
-1.- Debes estar seguro de tener instalados los paquetes `xsltproc`, `docbook-xsl`, `make` y `subversion`
+1.- Debes estar seguro de tener instalados los paquetes `xsltproc`, `docbook-xsl`, `make` y `git-core`
 
 ```
 $ sudo apt-get install xsltproc docbook-xsl make git-core
@@ -34,7 +34,7 @@ El documento `libro.html` recién generado es el libro en formato HTML.
 Generación de la documentación en formato PDF
 ---------------------------------------------
 
-1.- Debes estar seguro de tener instalados los paquetes `xsltproc`, `docbook-xsl`, `make` y `subversion`
+1.- Debes estar seguro de tener instalados los paquetes `xsltproc`, `docbook-xsl`, `make` y `git-core`
 
 ```
 $ sudo apt-get install xsltproc docbook-xsl make git-core
